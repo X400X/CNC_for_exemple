@@ -1,0 +1,42 @@
+;
+;Z0 NA TORCE!!!!
+;
+N1    G54   ;  _!!!_
+;
+N2 R10=220.15/2;FAKT D obnigenija pod pazi PO CHERTEGU!!
+N3 R20=8/2     ;D frezi
+N4 R1=-0    ;Nachalo (Glubina obnigenija) so znakom "-"
+N5 R2=-7    ;Glubna so znakom "-"
+N6 R3=1      ;Shag 
+N7 R4=2400     ;Oboroti
+N8 R5=700      ;Podacha
+N9 R6=39      ;NOMER FREZI
+;*************
+N10 R31=R10*2+10
+N11 R32=R10*2-26
+N12 R33=R2-5
+N10 WORKPIECE(,"",,"PIPE",320,0,R33,-80,R31,R32)
+N11 T=R6 M6 D1
+N12 G90 G17 G64 G94 G0
+N13 X0 Y0 W0 B0
+N14 S=R4 M3
+N15 M8
+N16 G0 X0 Y=R10-R20
+N17 Z2
+N18 R30=R1
+N19 G1 Z=R30 F=R5/2
+N20 WHILE R30>R2
+N21 R30=R30-R3
+N22 IF R30<R2
+N23 R30=R2
+N24 ENDIF
+N25 G3 X=IC(0)Y=IC(0)I=AC(0)J=AC(0)Z=R30 F=R5
+N26 ENDWHILE
+N27 G3 X=IC(0)Y=IC(0)I=AC(0)J=AC(0)F=R5
+N28 G1 Z2 F=R5
+N29 G0 Z300 M9
+N30 X0 Y0
+N31 M5
+N32 M00
+N33 M9
+N34 M30

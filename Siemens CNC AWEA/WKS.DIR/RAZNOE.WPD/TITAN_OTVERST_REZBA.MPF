@@ -1,0 +1,130 @@
+;
+;rabotaet s leva na pravo
+;Y centr trubi
+;
+N1 ROT Z=90
+N1 G54       ; !!!!!
+N2 R1=1      ;sverlovka otv. : 1 - delaet, 0 - NE delaet
+N3 R7=1      ;faska  : 1 - delaet, 0 - NE delaet
+N4 R2=1      ;narezanie rez'bi : 1 - delaet, 0 - NE delaet
+;_______kolichestvo i koordinati otv___________
+N5 R3=10      ;kolichestvo otv.
+N6 R4=0      ;skol'ko otv. zdelano
+N7 R5=25    ;37.5 koordinata pervogo otv. po X
+N8 R6=25     ;rastoyanie megdu otv.
+;_______sverlovka______________________________
+N9 R10=36    ;nomer instrumenta
+N10 R11=1200  ;oboroti
+N11 R12=120   ;podacha sverleniya (mm/min)
+N12 R13=10   ;glubina vmeste s konusom sverla (Z1)
+;_______faska    ______________________________
+N13 R50=17    ;nomer instrumenta
+N14 R51=2000  ;oboroti
+N15 R52=100   ;podacha (mm/min)
+N16 R53=3.3   ;glubina (Z1)
+;_______rezba__________________________________
+N17 R20=33    ;nomer instrumenta
+N18 R21=100   ;oboroti
+N19 R22=22    ;glubina zahoda metchika (Z1)
+N20 R23=1.25  ;shag rez'bi (P)
+N21 R60=1     ;1-M00 pered kagdim otv., 0-netu
+;______________________________________________
+N21 R30=100     ;rastoyanie pereezdov (PR) dlia vseh
+N22 R31=2       ;bezopasnoe rastoyanie (SR) dlia sverla
+N23 R33=1       ;bezopasnoe rastoyanie (SR) dlia ZENKERA
+N24 R32=5       ;bezopasnoe rastoyanie (SR) dlia metchika
+;*****************************************************************
+;
+N25 R41=(R3-1)*R6+R5*2;dlinna zagotovki dlia simuliacii
+N26 WORKPIECE(,"",,"BOX",80,0,-15,-80,0,-20,R41,40)
+N27 IF R1==0 GOTOF FASKA
+N28 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R10
+N29     M00
+N30 ENDIF
+N31 T=R10 
+N32 M6 D1
+N33 G17 G90 G94
+N34 IF($AA_IW[Z]<R30)
+N35   G0 Z=R30 W0
+N36 ENDIF
+N37 R40=R5+R6*R4
+N38 MSG("Otv. sdelano = "<<R4<<" sht.,  sverlim otv. nomer = "<<R4+1)
+N39 G0 Y0 X=R40 W0
+N40 M3 S=R11
+N41 G0 Z=R30
+N42 M8
+N43 R42=R4
+N44 WHILE R42<R3
+N45   R42=R42+1
+N46   MSG("Sverlim otv. nomer = "<<R42)
+N47   G0 X=R40 Y0
+N48   F=R12
+N49 CYCLE82(R30,0,R31,,R13,0.6,0,1,11)
+N50   R40=R40+R6
+N51 ENDWHILE
+N52 M9
+;
+;*****************************************************************
+;
+N52 FASKA:
+N53 IF R7==0 GOTOF METCHIK
+N54 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R50
+N55     M00
+N56 ENDIF
+N57 T=R50 
+N58 M6 D1
+N59 G17 G90 G94
+N60 IF($AA_IW[Z]<R30)
+N61   G0 Z=R30 W0
+N62 ENDIF
+N63 R40=R5+R6*R4
+N64 MSG("Fasok sdelano = "<<R4<<" sht.,  delaem fasku nomer = "<<R4+1)
+N65 G0 Y0 X=R40 W0
+N66 M3 S=R51
+N67 G0 Z=R30
+;N36 M8
+N68 R42=R4
+N69 WHILE R42<R3
+N70   R42=R42+1
+N71   MSG("Delaem fasku nomer = "<<R42)
+N72   G0 X=R40 Y0
+N73   F=R52
+N74 CYCLE82(R30,0,R33,,R53,0.6,0,1,11)
+N75   R40=R40+R6
+N76 ENDWHILE
+N77 M9
+;
+;*****************************************************************
+;
+N77 METCHIK:
+N78 IF R2==0 GOTOF END
+N79 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R20
+N80     M00
+N81 ENDIF
+N82 T=R20 
+N83 M6 D1
+N84 G17 G90 G94
+N85 IF($AA_IW[Z]<R30)
+N86   G0 Z=R30 W0
+N87 ENDIF
+N88 R40=R5+R6*R4
+N89 MSG("Narezano rezb sdelano = "<<R4<<" sht.,  narezaem rezbu nomer = "<<R4+1)
+N90 G0 Y0 X=R40 W0
+N91 G0 Z=R30
+;N92 M8
+N92 R42=R4
+N93 WHILE R42<R3
+N94   R42=R42+1
+N95   MSG("Narezaem rezbu nomer = "<<R42)
+N96   G0 X=R40 Y0
+N99   IF R60==1
+N100     M00
+N101  ENDIF
+N97   M3 S=R21
+N98 CYCLE840(R30,0,R32,,R22,0.6,0,5,11,,R23,0,1,0,,,,,1001,1)
+N99   R40=R40+R6
+N100 ENDWHILE
+N101 M9
+;*****************************************************************
+N101 END:
+N102 M30

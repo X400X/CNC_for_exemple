@@ -1,0 +1,153 @@
+;
+N1  G54;------!!!!!!!!!-------
+;
+;____opisanie_trubi__________________
+N2  R14=0      ;pripusk na torcovku(esli 0 ne delaet)
+N3  R12=2       ;L rastochki S Rpl (esli 0 ne delaet)
+N4  R9=209     ;max narugnyj diametr 
+N5  R11=146     ;min diametr vnutri
+N6  R10=175.9   ;Dp
+;____torcovka________________________
+N7  R40=1        ;nomer instrumenta torcovki
+N8  R41=66       ;diametr frezy torcovki
+N9  R42=10       ;vylet frezy za kraj truby
+N10 R43=3      ;shag frezerovki
+N11 R47=900      ;(S) oboroti
+N12 R48=2000      ;(F) podacha
+N13 R46=2        ;1=voda, 2=vozduh
+N14 R78=3         ;(G2)=3,(G3)=4
+;____rostochka_probniy________________
+N15 R20=9       ;nomer instrumenta rastochki 
+N16 R21=80      ;diametr frezy rastochki
+N17 R23=0.5       ;shag frezerovki Dp 
+N18 R27=400     ;(S)
+N19 R28=800    ;(F)
+N20 R26=1       ;1=voda, 2=vozduh
+N21 R5=4         ;(G2)=3,(G3)=4
+;---------------------------------------------------------------
+N22 R188=20        ;(Y,X)bezopasnoe rostojanie podhodov
+N23 R189=200      ;(Z)bezopasnoe rostojanie podhodov
+N24 R190=2000      ;podacha podhodov po (Z)
+N25 R53=1500     ;max oboroti u stanka
+;*************************************************************
+;
+;
+;
+N26 IF(R14==0)  GOTOF RASTOCHKA_PROBNIY
+;
+;    ***************************************
+;    ***           TORCOVKA              ***
+;    ***************************************
+;
+N27 IF(R14==0)  GOTOF POISK
+N28 IF(R11>=R9) GOTOF Z_ALARM1
+N29 G0 B0
+N30 IF(R14<=R43)
+N31   MSG("TORC.ZA 1 RAZ:PRIPUSK="<<R14<<",S="<<R47<<",F="<<R48)
+N32 ELSE
+N33   MSG("TORC.SPIRAL:PRIPUSK="<<R14<<",S="<<R47<<",F="<<R48)
+N34 ENDIF
+N35 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R40
+N36     M00
+N37 ENDIF
+N38 T=R40 M6 D1
+N39 G17 G90 G64 G94
+N40 IF($AA_IW[Z]<R189)
+N41   G0 Z=R189 W0
+N42 ENDIF
+N43 IF((R11/2-R41/2-R188)<0)
+N44 G0 Y0 X0 W0
+N45 ELSE
+N46 G0 Y=R11/2-R41/2-R188 X0 W0
+N47 ENDIF
+N48 M1
+N49 M3 S=R47
+N50 G0 Z=R189
+;
+N51 IF R46==1
+N52    M8
+N53 ENDIF
+N54 IF R46==2
+N55   M7
+N56 ENDIF
+;
+N57 IF(R14<=R43)
+N58   MSG("TORCOVKA ZA 1 RAZ: PRIPUSK="<<R14)
+N59   R14=0
+N60   G1 Z=R14 F=R190
+N61   Y=R9/2-R41/2+R42 F=R48/2
+N62   GOTOF ZA_RAZ
+N63 ENDIF
+N64 MSG("TORCOVKA SPIRAL: PRIPUSK="<<R14<<", SHAG="<<R43)
+N65 G1 Z=R14 F=R190
+N66 Y=R9/2-R41/2+R42   
+N67 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z0 TURN=(R14/R43)-1 F=R48
+N68 ZA_RAZ:
+N69 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R48
+N70 G0 Z=R189
+;
+;
+;    ***************************************
+;    ***        PROBA_RASTOCHKA          ***
+;    ***************************************
+;
+N71 RASTOCHKA_PROBNIY:
+N72 IF(R12==0) GOTOF KONEC
+N73 IF(R11>=R10) GOTOF Z_ALARM2
+N74 G0 B0
+N75 IF(R12>R23)
+N76   MSG("ROSTOCHKA:    Dp="<<R10<<",    L="<<R12<<",   (SHAG="<<R23<<"),     S="<<R27<<",    F="<<R28)
+N77 ELSE
+N78   MSG("PROBNIY:    Dp="<<R10<<",   L="<<R12<<",   S="<<R27<<",   F="<<R28)
+N79 ENDIF
+N80 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R20
+N81     M00
+N82 ENDIF
+N83 T=R20 M6 D1
+N84 G17 G90 G64 G94
+N85 IF($AA_IW[Z]<R189)
+N86   G0 Z=R189 W0
+N87 ENDIF
+N88 IF((R11/2-R21/2-R188)<0)
+N89 G0 Y0 X0 W0
+N90 ELSE
+N91 G0 Y=R11/2-R21/2-R188 X0 W0
+N92 ENDIF
+N93 G0 Z=R189
+N94 M1
+N95 M3 S=R27
+;
+N96 IF R26==1
+N97    M8
+N98 ENDIF
+N99 IF R26==2
+N100   M7
+N101 ENDIF
+;
+N102 IF(R12<=R23)
+N103   MSG("PROBNIY:     Dp="<<R10<<",    L="<<R12)
+N104   G1 Z=-R12 F=R190
+N105   Y=R10/2-R21/2 F=R28/2 
+N106   GOTOF ZA_RAZ2
+N107 ENDIF
+N108 MSG("ROSTOCHKA:     Dp="<<R10<<",    L="<<R12<<",  (SHAG="<<R23)
+N109 G1 Z0 F=R190
+N110 Y=R10/2-R21/2 F=R28/2  
+N111 G[1]=R5 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z=-R12 TURN=(R12/R23)-1 F=R28
+N112 ZA_RAZ2:
+N113 G[1]=R5 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N114 IF((R11/2-R21/2-R188)<0)
+N115   G0 Y0
+N116 ELSE
+N117   G0 Y=R11/2-R21/2-R188
+N118 ENDIF 
+N119 G0 Z=R189
+N120 GOTOF KONEC
+;
+N121 Z_ALARM2:
+N122 MSG("Min diametr vnutri BOLSHE chem Dp")
+N123 G4F600
+;
+N124 KONEC:
+N125 M9
+N126 M30

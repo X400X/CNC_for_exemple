@@ -1,0 +1,77 @@
+N1  G54        ;!!!!!!!!!!!;
+N2 ROT Z=0    ;!!!!!!!!!!!
+;
+N3 R51=405/2  ;MIN R vnutr
+N4 R2=412/2   ;803 R Dp
+N5 R3=2  ;L Dp
+N6 R1=63/2     ;Rfr Dp          !!!63-proverka!!!
+N7 R201=10     ;T nomer fr Dp   !!!17-proverka!!!
+N8 R54=0       ;R plastini Dp   !!!!0-proverka!!!
+N9 R4=2      ;Shag rastochki v Dp
+N10 R31=400    ;Oboroti Dp
+N11 R59=1000    ;Podacha Dp
+N12 R60=1      ;0-BEZ OHLAGDENIYA, 1-VODA,  2-VOZDUH 
+;*******************
+N13 R63=50 ;Bezopas rasstojanie
+N14 R30=R2-R1;(RADIUS RASTOCHKI S UCHETOM R FREZI)
+N15 R32=0  ;Nachalo Z0 NA TORCE
+N16 R61=R3+R54;L Dp+Rpl Dp
+;*******************
+;_____Korrektora tut_____
+N17 _KORREKTORA_
+N18 G90
+;________________________
+;--- Proverka Sk i korrektorov----
+;****************
+N84 STOPRE
+N209 R184=R66+R6+R7+R8+R9+R10+R11+R12+R13+R14+R15+R16
+N210 R185=R18+R19+R20+R21+R22+R23+R24+R25+R26+R27+R28+R29
+N209 MSG("Tochki = "<<R184<<",   dugi = "<<R185)
+N210 
+N210 M00 ;proverit tochki v ALARM/SOOBSHENIYA
+N211 
+N19 MSG ("--- Proverka Sk i korrektorov Dp= "<<R2*2<<" mm  Lp= "<<R3<<" mm ---")
+N20 R33=R32
+N21 T=R201 M6
+N22 D1
+N23 G0 G90 G17 G64 G94
+N24 Z300
+N24 X=COS(90+22)*(R51-R1-R63) Y=SIN(90+22)*(R51-R1-R63) W0 B0
+N26 M3 S=R31
+N27 G0 Z0 ;M1
+N28 IF R60==1
+N29   M8
+N30 ENDIF
+N31 IF R60==2
+N32   M7
+N33 ENDIF
+N34 WHILE R33>-R61
+N35    R33=R33-R4
+N36 IF R33<-R61
+N37    R33=-R61
+N38 ENDIF
+N39 G0 Z=R33
+;N67 G0 X0 Y=R30+R17-R51;ISHOD (.)?????
+;N68 G0 X0 Y=R51-R1-R63 ;ISHOD (.)
+N40 G0 X=COS(90+22)*(R51-R1-R63) Y=SIN(90+22)*(R51-R1-R63);ISHOD (.)
+;N70 M1
+;N69 G1 X0 Y=R30+R17 F400;(.)12
+N41 G2 X0 Y=R30+R17 CR=R30+R17 F=R59*0.8;(.)12
+N42 G2 X=(R30+R6)/2 Y=(R30+R6)*COS(30) CR=R30+R18 F=R59 ;(.)1
+N43 G2 X=(R30+R7)*COS(30) Y=(R30+R7)/2 CR=R30+R19 F=R59 ;(.)2
+N44 G2 X=(R30+R8) Y=0 CR=R30+R20 F=R59 ;(.)3
+N45 G2 X=(R30+R9)*COS(30) Y=-(R30+R9)/2 CR=R30+R21 F=R59 ;(.)4
+N46 G2 X=(R30+R10)/2 Y=-(R30+R10)*COS(30) CR=R30+R22 F=R59  ;(.)5
+N47 G2 X0 Y=-(R30+R11) CR=R30+R23 F=R59 ;(.)6
+N48 G2 X=-(R30+R12)/2 Y=-(R30+R12)*COS(30) CR=R30+R24 F=R59 ;(.)7
+N49 G2 X=-(R30+R13)*COS(30) Y=-(R30+R13)/2 CR=R30+R25 F=R59 ;(.)8
+N50 G2 X=-(R30+R14) Y=0 CR=R30+R26 F=R59 ;(.)9
+N51 G2 X=-(R30+R15)*COS(30) Y=(R30+R15)/2 CR=R30+R27 F=R59 ;(.)10
+N52 G2 X=-(R30+R16)/2 Y=(R30+R16)*COS(30) CR=R30+R28 F=R59 ;(.)11
+N53 G2 X0 Y=R30+R17 CR=R30+R29 F=R59 ;(.)12
+;N81 G0 X0 Y=R30+R17-R51;ISHOD (.)
+;N82 G0 X0 Y=R51-R1-R63 ;ISHOD (.)
+N54 G0 X=COS(90+22)*(R51-R1-R63) Y=SIN(90+22)*(R51-R1-R63);ISHOD (.)
+N55 ENDWHILE
+N56 G0 X0 Z300 M9 M5
+N57 M30

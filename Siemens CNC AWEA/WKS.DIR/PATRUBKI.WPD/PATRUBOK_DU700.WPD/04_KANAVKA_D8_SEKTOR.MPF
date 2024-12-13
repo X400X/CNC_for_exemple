@@ -1,0 +1,38 @@
+;Z0 NA TORCE!!!!
+;***********
+;Frezerovka paza
+;frezoj D=8mm
+;***********
+N1 R10=816/2;FAKT D obnigenija pod pazi PO CHERTEGU!!
+N2 R200=0.1    ;Pripusk pod razbivku 0.08
+N3 R20=8/2     ;D frezi
+N4 R1=-11.5      ;Nachalo (Glubina obnigenija) so znakom "-"
+N5 R2=-25;50.1    ;Glubna so znakom "-"
+N6 R3=0.07;0.5      ;Shag 
+N7 R4=1600     ;Oboroti
+N8 R5=500;700     ;Podacha
+;*************
+N9 MSG("Dpaza= "<<R10*2-R200<<" mm  Pripusk= "<<R200<<" mm Shag= "<<R3<<" ")
+N10 G54 G90 G17 G64 G94 G0
+N11 X0 Y0 W0 B0
+N12 S=R4 M3 F15 
+N13 Z=R1+0.5
+N14 M8 ;m1
+;N15 G0 X0 Y=R10-R20-2;podskok s bezop rasstojaniem
+N15 G0 AP=90-3 RP=R10-R20-2;podskok s bezop rasstojaniem
+;N16 G1 Y=R10-R200-R20 F20;vihod na D
+N16 G1 AP=90-3 RP=R10-R200-R20 F20;vihod na D
+N17 Z=R1+0.5
+N18 WHILE R1>R2
+N19      R1=R1-R3
+N20 IF R1<R2
+N21    R1=R2
+N22 ENDIF
+N23 G1 Z=R1 F20
+;N24 G3 I=AC(0) J=AC(0) F=R5
+N24 G3 AP=90 RP=R10-R200-R20  F=R5
+N25 G2 AP=90-3 RP=R10-R200-R20
+N25 ENDWHILE
+N26 G0 Z300 M9
+;N27 X0 Y0
+N28 M30

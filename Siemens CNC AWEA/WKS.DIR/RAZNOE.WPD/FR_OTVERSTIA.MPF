@@ -1,0 +1,49 @@
+;RASFREZEROVKA OTV
+;*****************
+;----R-PARAMETR----
+;******************
+N1 R2=0        ;0=>G2 1=>G3
+N2 R106=193/2  ;R otv  
+N3 R120=508    ;NACHALO OBRABOTKI (S "+")
+N4 R109=600    ;Glubina
+N5 R111=160/2  ;R frezi
+N6 R200=12     ;T nomer frezi
+N7 R104=0      ;R plastini
+N8 R116=0.75    ;Shag vinta 
+N9 R1=400      ;Oboroti 
+N10 R3=4000     ;Podacha 
+N11 R50=0      ;1-voda,  2-vozduh
+;**************
+;VNUTRENNIJ DIAMETR
+;--GRUBO--
+;***************
+N11 MSG("Dotv="<<R106*2<<"mm,Znach="<<R120<<",Zkon="<<R109+R104<<" mm")
+N12 T=R200 M6
+N13 D1
+N14 R117=((R109-R120+R104)/R116)-1
+N15 G54 G17 G0 G64 G90 G94 D1
+N16 G0 X0 Y0 W0 B0
+N17 G0 Z=100 F3000
+N18 S=R1 M3
+N19 G1 Z=-R120+10 F3000
+N20 G1 Z=-R120 F300
+N21 IF R50==1
+N22    M8
+N23 ENDIF
+N24 IF R50==2
+N25    M7
+N26 ENDIF
+N22 G1 Y=R106-R111 F800 ;
+
+N23 IF R2==1
+N24 G3 X=IC(0) Y=IC(0) Z=-R109-R104 I=AC(0) J=AC(0) TURN=R117 F=R3 CFTCP;vint
+N25 G3 I=AC(0) J=AC(0) F=R3
+N26 GOTOF _HAPI_END_
+N27 ENDIF
+
+N28 G2 X=IC(0) Y=IC(0) Z=-R109-R104 I=AC(0) J=AC(0) TURN=R117 F=R3 CFTCP;vint
+N29 G2 I=AC(0) J=AC(0) F=R3
+N30 _HAPI_END_:
+N31 G1 X0 Y0 F400 M9
+N32 G0 Z500
+N33 M30

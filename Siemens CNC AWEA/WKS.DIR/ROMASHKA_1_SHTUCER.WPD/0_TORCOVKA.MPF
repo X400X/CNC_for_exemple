@@ -1,0 +1,69 @@
+;
+N1  G54;------!!!!!!!!!-------
+;
+;____opisanie_trubi__________________
+N2  R14=1      ;pripusk na torcovku(esli 0 ne delaet)
+N4  R9=108     ;max narugnyj diametr 
+N5  R11=96     ;min diametr vnutri
+;____torcovka________________________
+N7  R40=10        ;nomer instrumenta torcovki
+N8  R41=63       ;diametr frezy torcovki
+N9  R42=15       ;vylet frezy za kraj truby
+N10 R43=0.5      ;shag frezerovki
+N11 R47=800      ;(S) oboroti
+N12 R48=1500      ;(F) podacha
+N13 R46=1        ;0=bez ohlagdeniya, 1=voda, 2=vozduh
+N14 R78=4    ;  (G2)=3,(G3)=4
+;---------------------------------------------------------------
+N22 R188=20        ;(Y,X)bezopasnoe rostojanie podhodov
+N23 R189=200      ;(Z)bezopasnoe rostojanie podhodov
+N24 R190=2000      ;podacha podhodov po (Z)
+;*************************************************************
+;
+N29 G0 B0
+N30 IF(R14<=R43)
+N31   MSG("TORC.ZA 1 RAZ:PRIPUSK="<<R14<<",S="<<R47<<",F="<<R48)
+N32 ELSE
+N33   MSG("TORC.SPIRAL:PRIPUSK="<<R14<<",S="<<R47<<",F="<<R48)
+N34 ENDIF
+N35 T=R40 
+N36 M6 D1
+N36 G17 G90 G64 G94
+N37 IF($AA_IW[Z]<R189)
+N38   G0 Z=R189 W0
+N39 ENDIF
+N40 IF((R11/2-R41/2-R188)<0)
+N41 G0 Y0 X0 W0
+N42 ELSE
+N43 G0 Y=R11/2-R41/2-R188 X0 W0
+N44 ENDIF
+N45 M1
+N46 M3 S=R47
+N47 G0 Z=R189
+;
+N48 IF R46==1
+N49    M8
+N50 ENDIF
+N51 IF R46==2
+N52   M7
+N53 ENDIF
+;
+N54 IF(R14<=R43)
+N55   MSG("TORCOVKA ZA 1 RAZ: PRIPUSK="<<R14)
+N56   R14=0
+N57   G1 Z=R14 F=R190
+N58   Y=R9/2-R41/2+R42 F=R48/2
+N59   GOTOF ZA_RAZ
+N60 ENDIF
+N61 MSG("TORCOVKA SPIRAL: PRIPUSK="<<R14<<", SHAG="<<R43)
+N62 G1 Z=R14 F=R190
+N63 Y=R9/2-R41/2+R42   
+N64 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z0 TURN=(R14/R43)-1 F=R48 CFTCP
+N65 ZA_RAZ:
+N66 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R48 CFTCP
+N67 G0 Z=R189
+;
+;
+N113 KONEC:
+N114 M9
+N115 M30

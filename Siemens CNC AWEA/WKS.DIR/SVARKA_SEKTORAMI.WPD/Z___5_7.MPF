@@ -1,0 +1,78 @@
+;***********************
+N1 R50=820/2   ;MAX Nar R det
+N2 R51=700/2   ;MIN R vnutr
+N3 R2=777.1/2  ;R DK 
+N4 R3=2       ;L DK          1 -PROBA!!!
+N7 R1=160/2    ;63   Rfr DK            40-PROBA!!!!
+N10 R54=0  ;4     R plastini DK 
+N12 R41=40     ;Ugol faski v DK
+N14 R4=1    ;1 Shag rastochki v DK
+N15 R42=1    ;Shag faski v DK
+N17 R40=90     ;L faski v DK
+N19 R31=320    ;Oboroti DK 1000    1500-PROBA!!!
+N21 R59=6000   ;Podacha DK 3000
+N22 R62=6000   ;Podacha faski v DK
+;******************
+N23 R63=3 ;Bezopas rasstojanie
+N24 R30=R2-R1;(RADIUS RASTOCHKI S UCHETOM R FREZI)
+N25 R32=0 ;Nachalo Z0 NA TORCE
+N26 R61=R3+R54;L DK+Rpl DK
+;***********************
+
+
+N24 R10=2.3;(TOCHKA 5) 
+N25 R23=0    ;(Rad 5-6)
+N26 R11=0;(TOCHKA 6)
+N27 R24=0    ;(Rad 6-7)
+N28 R12=4;(TOCHKA 7)
+
+
+;*************
+
+;---RASTOCHKA DK---
+;****************
+MSG ("---RASTOCHKA DK---")
+N51 R33=R32
+N54 G54 G0 G90 G17 G64 G94
+N55 X0 Y0 W0 B0
+N56 Z300
+N57 M3 S=R31
+N58 G0 Z0 ;M1
+N59 H10=11 M7
+N60 WHILE R33>-R61
+N61    R33=R33-R4
+N62 IF R33<-R61
+N63    R33=-R61
+N64 ENDIF
+N65 G0 Z=R33
+N69 G0 X=(R30+R10)/2 Y=(-(R30+R10)*COS(30))+30
+N69 G1 X=(R30+R10)/2 Y=-(R30+R10)*COS(30) F=800 ;(.)5
+N73 G2 X0 Y=-(R30+R11) CR=R30+R23 F=R59 ;(.)6
+N74 G2 X=-(R30+R12)/2 Y=-(R30+R12)*COS(30) CR=R30+R24 F=R59
+N81 ENDWHILE
+N82 G0 X0 Y0
+N83 M1
+;****************
+;VNUTR UGOL
+;****************
+MSG ("VNUTR UGOL")
+N85 R43=0 ;Shetcik vnutr ugol
+N86 R45=-R61
+N87 R70=R40+R61
+N87 G0 Z=R45
+N88 WHILE R45>-R70
+N89       R45=R45-R42
+N90 IF    R45<-R70
+N91       R45=-R70
+N92 ENDIF
+N93 G0 Z=R45
+N94 R44=-(R42*(TAN(R41))*R43);Prirashenie po uglu
+N101 G0 X=(R30+R10)/2+R44 Y=-(R30+R10)*COS(30)-R44
+N102 G2 X=0 Y=-(R30+R11)-R44 CR=R30+R23+R44 F=R62 ;(.)6
+N103 G2 X=-(R30+R12)/2-R44 Y=-(R30+R12)*COS(30)-R44 CR=R30+R24+R44 F=R62 ;(.)7
+N110 R43=R43+1
+N111 ENDWHILE
+N112 G0 X0 Y0 M9
+N113 Z300
+MSG
+N158 M30

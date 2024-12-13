@@ -1,0 +1,35 @@
+---- STAL 15GS ------
+ESLI DELAT PAZ B=8mm po G2 TO R200=0.6mm vo VSEH programmah!!!
+ESLI DELAT PAZ B=8mm po G3 TO R200=0.1
+v programme OBNIGENIE POD PAZI
+R200=0.08  ;0.2
+v programme SVERLOVKA POD KANAVKU i KANAVKA D8
+R200=0.02
+
+----- REGIMI NA KANAVKU -------
+S1500
+F500 -  EKONOM FREZI
+F700 -  BALANS
+F1000 - SKOROST'
+----------------------------------------------------
+------ STAL PI91 --------
+ESLI DELAT PAZ B=8mm po G2 TO R200= mm vo VSEH programmah!!!
+ESLI DELAT PAZ B=8mm po G3 TO R200=
+v programme OBNIGENIE POD PAZI
+R200=  ;0.2
+v programme SVERLOVKA POD KANAVKU i KANAVKA D8
+R200=
+
+----- REGIMI NA KANAVKU -------
+S
+F00 -  EKONOM FREZI
+F00 -  BALANS
+F000 - SKOROST'
+-------------------------------------------------------
+
+
+
+
+
+
+

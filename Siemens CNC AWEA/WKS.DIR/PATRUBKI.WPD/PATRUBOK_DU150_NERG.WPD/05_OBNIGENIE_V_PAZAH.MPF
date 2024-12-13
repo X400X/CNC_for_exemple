@@ -1,0 +1,39 @@
+;Obnigenie v pazah B=12
+;!!! Z0 - NA TORCE !!
+;*****************
+;----R-PARAMETR----
+;******************
+N1 R16=155/2    ;R vutrennj paza B=8(!!MERIT!!)
+N2 R201=1.2       ;Razmer NEDOEZDA do R16 1-J PROHOD=7.1!!!!
+N3 R1=2           ;Glubina SDELANNOGO obnigenija!!!
+N4 R109=1         ;Glubina obnigenija
+N5 R17=146/2      ;R vnutr otv
+N6 R112=8/2       ;R frezi 
+N7 R200=39        ;T nomer frezi
+N8 R120=0.5       ;Shag vinta
+N9 R4=1200         ;Oboroti 
+N10 R5=500        ;Podacha
+;_________________________-
+N11 R106=(R16*2)-R201
+N12 R105=R106/2
+N13 MSG("Robnig= "<<R105<<"")
+N14 R107=R1+R109  ;Z konechnaja glubina
+;**************
+;---OBNIGENIE ---
+;***************
+N15 MSG(" Obnigenie v pazikah B=12 D="<<R106<<" Znach= -"<<R1<<" Zkon= -"<<R107<<"")
+N16 R117=(R109/R120)-1
+N17 T=R200 M6 D1
+N18 G54 G17 G0 G64 G90 G94 D1
+N19 X0 Y0 W0 B0
+N20 Z100
+N21 S=R4 M3
+N22 Z=-R1
+N23 M8
+N24 G0 X0 Y=R17-R112-3
+N25 G1 X0 Y=R105-R112 F100
+N26 G3 X=IC(0) Y=IC(0) Z=-R107 I=AC(0) J=AC(0) TURN=R117 F=R5 CFTCP
+N27 G3 I=AC(0) J=AC(0) F=R5
+N28 G0 X0 Y0
+N29 Z500 m9
+N30 M30

@@ -1,0 +1,30 @@
+N1 G91
+;***********************
+N3  R66=-1 ;(TOCHKA 12)
+N4  R18=0    ;(Rad 12-1)
+N5   R6=-1  ;(TOCHKA 1)
+N6  R19=0    ;(Rad 1-2)
+N7   R7=0  ;(TOCHKA 2) 
+N8  R20=0    ;(Rad 2-3)
+N9   R8=3  ;(TOCHKA 3) 
+N10 R21=10    ;(Rad 3-4)
+N11  R9=5 ;(TOCHKA 4) 
+N12 R22=-5    ;(Rad 4-5)
+N13 R10=3 ;(TOCHKA 5) 
+N14 R23=0    ;(Rad 5-6)
+N15 R11=1 ;(TOCHKA 6)
+N16 R24=0    ;(Rad 6-7)
+N17 R12=-1.5 ;(TOCHKA 7)
+N18 R25=0    ;(Rad 7-8)
+N19 R13=-1 ;(TOCHKA 8)
+N20 R26=0    ;(Rad 8-9)
+N21 R14=0 ;(TOCHKA 9)
+N22 R27=0    ;(Rad 9-10)
+N23 R15=-1 ;(TOCHKA 10)
+N24 R28=0    ;(Rad 10-11)
+N25 R16=-1 ;(TOCHKA 11)
+N26 R29=0   ;(Rad 11-12)
+N27 R17=R66  ;(TOCHKA 12) 
+;*****************
+N28 G90
+N29 M17

@@ -1,0 +1,101 @@
+;
+N1 G55  ;!!!!!
+;
+N2 R1=2   ;1-robochaya os "Z", 2-robochaya os "W"
+N3 R2=37   ;N instrumenta
+N4 R3=400  ;Oboroti
+N5 R4=20   ;Podacha
+N6 R5=-0   ;nachal'naya glubina
+N7 R6=-31  ;konechnaya glubina
+N8 R7=2   ;shag sverleniya
+N9 R8=1    ;1-polniy vivod, 2-otskok na 0.5mm(lomanie strugki)
+N10 R16=1  ; ;0=bez ohlagdeniya, 1=voda
+;_______________________________________________________________
+N10 R9=2    ;bezopasnoe rasstoyanie na starte
+N11 R11=0.5 ;bezopasnoe rasstoyanie na kagdom shage
+N11 R13=1   ;sekund zadergki na kagdom shage na dne
+N11 R15=0 ;sekund zadergki na kagdom vivode dli udaleniya strugki
+N12 R10=100 ;ploskost' otvoda
+N12 R14=2000;podacha ot R10 do R9
+;**************************************************************
+N13 T=R2 M6 D1
+N14 G17 G71 G94 G90
+N15 G0 B0
+N16 IF R1==1
+N17    G0 Z=R10 W0
+N18 ENDIF
+N19 IF R1==2
+N20    G0 Z0 W=R10
+N21 ENDIF
+N22 G0 X0 Y0
+N23 M3 S=R3
+N24 IF R16==1
+N25    M8
+N26 ENDIF
+N25 IF R1==1
+N26    G1 Z=R5+R9 W0 F=R14
+N27 ENDIF
+N28 IF R1==2
+N29    G1 Z0 W=R5+R9 F=R14
+N30 ENDIF
+N31 R12=R5
+N32 IF (R1==1) AND (R8==1);  Z, VIVOD STRUGKI
+N31    WHILE R12>R6
+N32       IF R12<R5
+N33          G0 Z=R12+R11
+N34       ENDIF
+N32       R12=R12-R7
+N33       IF R12<R6
+N34          R12=R6
+N35       ENDIF
+N37       G1 Z=R12 F=R4
+N40       G4 F=R13
+N42       G0 Z=R9
+N43       G4 F=R15
+N32    ENDWHILE
+N33 ENDIF
+N32 IF (R1==2) AND (R8==1);  W, VIVOD STRUGKI
+N31    WHILE R12>R6
+N32       IF R12<R5
+N33          G0 W=R12+R11
+N34       ENDIF
+N32       R12=R12-R7
+N33       IF R12<R6
+N34          R12=R6
+N35       ENDIF
+N37       G1 W=R12 F=R4
+N40       G4 F=R13
+N42       G0 W=R9
+N43       G4 F=R15
+N32    ENDWHILE
+N33 ENDIF
+N32 IF (R1==1) AND (R8==2);  Z, LOMANIE STRUGKI
+N31    WHILE R12>R6
+N32       R12=R12-R7
+N33       IF R12<R6
+N34          R12=R6
+N35       ENDIF
+N37       G1 Z=R12 F=R4
+N40       G4 F=R13
+N42       G0 Z=R12+R11
+N32    ENDWHILE
+N33 ENDIF
+N32 IF (R1==2) AND (R8==2);  W, LOMANIE STRUGKI
+N31    WHILE R12>R6
+N32       R12=R12-R7
+N33       IF R12<R6
+N34          R12=R6
+N35       ENDIF
+N37       G1 W=R12 F=R4
+N40       G4 F=R13
+N42       G0 W=R12+R11
+N32    ENDWHILE
+N33 ENDIF
+N16 IF R1==1
+N17    G0 Z=R10
+N18 ENDIF
+N19 IF R1==2
+N20    G0 W=R10
+N33 ENDIF
+N34 M5 M9
+N32 M30

@@ -1,0 +1,33 @@
+;RASFREZEROVKA POTAJA
+;D17 FREZOJ
+;*****************
+;----R-PARAMETR----
+;******************
+N1 R106=17.25/2 ;R otv 14-17.1
+N2 R109=6   ;Glubina
+N3 R120=0     ;NACHALO OBRABOTKI
+N4 R111=10/2 ;R frezi
+N5 R200=39    ;T nomer frezi 
+N6 R104=0     ;R plastini
+N7 R116=0.3     ;Shag vinta
+N8 R1=1500    ;Oboroti
+N9 R3=360   ;Podacha
+;**************
+;---OTVERSTIE----
+;***************
+N10 MSG("Dotv= "<<R106*2<<"  Zkon= "<<R109<<"  Shag= "<<R116<<" ")
+N11 T=R200 M6 D1
+N12 R117=((R109-R120)/R116)-1
+N13 G55 G17 G0 G64 G90 G94 D1
+N14 G0 X0 Y0 W0 B0
+N15 Z100
+N16 S=R1 M3
+N17 Z3
+N18 G1 Z=-R120 F200
+N19 M8
+N20 G1 X=R106-R111 F250 ;
+N21 G2 X=IC(0) Y=IC(0) Z=-R109-R104 I=AC(0) J=AC(0) TURN=R117 F=R3 CFTCP;vint
+N22 G2 I=AC(0) J=AC(0) F=R3
+N23 G0 X0 Y0
+N24 Z500 SPOS=0 M9
+N25 M30

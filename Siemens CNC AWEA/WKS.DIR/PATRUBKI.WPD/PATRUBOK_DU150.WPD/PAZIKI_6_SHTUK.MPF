@@ -1,0 +1,46 @@
+;
+;  do narugnogo D krugovogo paza freza ne doezgaet 1mm, izmenit'
+;  mogno v R15
+;
+N1 G54    ;  _!!!!_
+;
+N2 R1=220    ;narugniy D krugovogo paza
+N3 R2=193    ;vnutrenniy D patrubka
+N5 R4=12.1   ;shirina pazika
+N6 R5=-3.5   ;ploskost' nachala obrabotki po Z
+N7 R6=3.1      ;glubina pazika
+N8 R7=0.25    ;shag po Z
+N9 R8=30     ;nachal'niy gradus ot osi +X dlia pervogo pazika
+N10 R9=60    ;gradus megdu pazikami
+N11 R10=6    ;kolichestvo pazikov
+N12 R11=39   ;nomer frezi
+N13 R12=8   ;D frezi
+N14 R13=2400 ;oboroti frezi
+N15 R14=250  ;podacha obrabotki
+N16 R19=1    ;0=bez ohlagdeniya, 1=voda, 2=vozduh
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+N16 R15=R1/2-1 ; R15=R1/2-(bezopasniy zazor)
+N17 R16=R2/2-R4/2-2
+N18 R17=R15-R16
+N19 R18=R5-R6
+N17 WORKPIECE(,"",,"PIPE",320,R5,R18,-80,R1,R2)
+N16 T=R11 M6 D1
+N17 G17 G90 G94 G71
+N18 G0 Z200 W0 B0
+N19 X0 Y0
+N20 M3 S=R13
+N21 IF R19==1
+N22    M8
+N23 ENDIF
+N24 IF R19==2
+N25    M7
+N26 ENDIF
+N22 MCALL SLOT1(100,R5,1,,R6,1,R17,R4,0,0,5,0,0,0.1,R14,R7,0,0,31,0.1,15,15,0,15,2,0,1,2,3100,1011,101)
+N23 HOLES2(0,0,R16,R8,R9,R10,2000,0,,,1)
+N24 MCALL
+N25 G0 Z200
+N25 X0 Y0
+N26 M5
+N27 M00
+N28 M9
+N27 M30

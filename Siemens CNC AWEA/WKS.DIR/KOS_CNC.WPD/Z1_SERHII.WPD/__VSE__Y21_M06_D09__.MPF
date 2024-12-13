@@ -1,0 +1,1696 @@
+;
+N1  G54     ;  !!!!!!
+N2  R14=0      ;torec, pripusk MM (0-NET)
+N3  R22=3.1    ;rastoshka    (0-NET/1-po vintu/2-pod uglom/3-shagi)
+N4  R15=1.2   ;fask vnutri(0-NET/1-melK shag/2-fr75gr)
+N5  R79=4.4    ;US (0-NET/1-SHAGI/3-s chernovim pod fr15gr/4-POD f;               r19gr/0-C2/0-KAZAH)
+N6  R52=4.3  ;1-YA faskNar(0-NET/1-melkShag(C3,C2)/2-fr15gr(C3,C2)/;       3-fr15gr s chernovim prohodom USA/4-fr19gr(nerjav)/5-KAZAH)
+N7  R67=0.5    ;2-YA FASKA  ( 0-NET/ 1-C2,C3/ 5-KAZAH)
+;
+;______________opisanie_trubi__________________ 
+N8  R9=278    ;max narugnyj diametr (konechniy dlya 2-y faski)
+N9  R11=228    ;min diametr vnutri
+N10 R10=243.1  ; Dp
+N11 R12=25   ;L rastochki BEZ Rpl
+N12 R3=0       ;Ugol rastochki (esli NEnugen stavim-0) OT OSI
+N13 R13=12     ;faska vnutri (gradus ot OSI)
+N14 R80=19     ;1-faska s narugi (gradus ot torca)(C3,C2,KAZAH)
+N15 R88=0    ;D nachala vtoroy faski(0-NET/R10+2*5 KAZAH)
+N16 R8=0      ;2-faskaSnarugi,gradus Ot TORCA(0-NET)
+N17 R17=3.1     ;L usa BEZ Rpl (0-C2/0-KAZAH)
+N18 R18=2.9      ;tolshina usa/PRITUPLENIR DLIA C2, KAZAH
+;______________frezy___rezhymy__________
+;____torcovka________________________
+N19 R40=1      ;nomer frezi torcovki
+N20 R41=66       ;diametr frezy torcovki
+N21 R42=10       ;vylet frezy za kraj truby PO Y
+N22 R43=1      ;shag frezerovki
+N23 R47=350      ;(S) oboroti
+N24 R48=800      ;(F) podacha
+N25 R46=1       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+N26 R78=3         ;(G2)=3,(G3)=4
+;____rastochka________________
+N27 R20=3       ;nomer frezi rastochki 
+N28 R21=140      ;diametr frezy rastochki
+N29 R16=4        ;Rpl frezi rastochki
+N30 R23=2       ;shag  Dp 
+N31 R27=200     ;(S) oboroti
+N32 R28=700    ;(F) podacha
+N33 R26=1       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+N34 R29=3         ;(G2)=3,(G3)=4
+N35 R81=0.15 ;sniatie zausenki (0-NET,esli > 0 to R81=RAZMER FASKI)
+;_____faska_vnutri________________
+N36 R30=3       ;nomer frezi
+N37 R31=140     ;diametr frezy  fr75grad ZCC=86.4
+N38 R35=0.5        ;shag dlia melkih shagov
+N39 R39=200     ;(S) oboroti
+N40 R50=1000    ;(F) podacha
+N41 R37=1       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+N42 R49=3         ;(G2)=3,(G3)=4
+N43 R87=0;!!!dlia fr75, esli>0 to perviy prohod/2, potom =R87 ;               (glubina po umolchaniyu = 10.67mm)
+;______US_____________________________
+N44 R70=10      ;nomer frezi
+N45 R71=63      ;diametr frezi
+N46 R72=1.6      ;Radius plastin
+N47 R73=3       ;kolichestvo prohodov
+N48 R74=450     ;(S) oboroti
+N49 R75=1000     ;(F) podacha
+N50 R77=1       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+N51 R85=0.2 ;sniatie zausenki (0-NET,esli >0 to R85=RAZMER FASKI)
+;_____1-YA faska_NARUGA________________
+N52 R60=18      ;nomer frezi
+N53 R61=80      ;diametr frezy fr15gr=80, fr19gr=80
+N54 R91=0      ;Rpl DLIA C2,KAZAH  (dlia C2 frezoy 15gr ne nada)
+N55 R62=0    ;shagDliaC2,C3(melk shag),KAZAH(dliaC2fr15grNeNada)
+N56 R63=360     ;(S) oboroti
+N57 R64=800     ;(F) podacha
+N58 R66=0       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+;_____2-YA_faska_NARUGA________________
+N59 R173=12      ;nomer frezi
+N60 R174=160      ;diametr frezy
+N61 R175=2      ;Rpl
+N62 R176=1     ;shag
+N63 R177=100     ;(S) oboroti
+N64 R178=6000     ;(F) podacha
+N65 R180=2       ;0-bez ohlagdeniya,1-voda, 2-vozduh
+;_______________________________________________________________
+;***************************************************************
+;
+N66 WORKPIECE(,"",,"PIPE",320,0,-200,-80,R9,R11)
+N67 R226=0   ;G75 Z0 X0   (ESLI==0 NE DELAET,ESLI==1 DELAET)
+;
+N68 R188=30        ;(Y,X)bezopasnoe rostojanie podhodov
+N69 R189=200      ;(Z)bezopasnoe rostojanie podhodov
+N70 R190=2000     ;podacha podhodov po (Z)
+;
+N71 R32=15      ;(fr75) ugol povorota plastiny(15)
+N72 R33=0.8     ;(fr75) radius plastin
+N73 R34=12.7    ;(fr75) shyrina plastin
+;dlia SPET 120408S stavim R0=-0.35, R213=0.12 (na opravke ZCC)
+N74 R0=-0.35    ;(fr75) korrekciia po (Y) START TOCHKA('-'UMEN D)
+N75 R213=0.12   ;(fr75)korrekPo(Y)KAJDIY SHAG('-' UMENSHA D.)
+N76 R24=0.8         ;(fr15) radius plastin
+N77 R25=15          ;(fr15) ugol povorota plastiny(15)
+N78 R19=12.7        ;(fr15) shyrina plastin
+N79 R191=0          ;(fr15) korrekciia po (Y) START TOCHKA
+;dlia SDMT120408-D51 stavim R192=0, R211=0.07  (WALTER)???
+;dlia SDMW120408-A57 stavim R192=0, R211=0 (GOLD WAL)!!!L==150.35
+;dlia SDHT 12-2120000 stavim R192=0.03, R211=-0.03 (PRAMET)???
+N80 R192=0.02  ;(fr15) korrekciia po (Z)START TOCH(S"-"V GLYBIN)
+N81 R211=0.02       ;(fr15) korrekciia po (Z) NA KAGDIY SHAG-->
+;                   --> S MINUSOM DOBAVLIAET GLUBINU
+N82 R215=3        ;(fr19) radius plastin
+N83 R216=2        ;(fr19) shag predvaritel US
+N84 R217=5.5        ;(fr19) shag faska po "Y"
+N85 R218=0.35     ;(fr19) shag faski frezoy USa
+;*************************************************************
+N86  G17 G90 G64 G94
+;
+;
+;****************    -P-O-JA-S-N-E-N-I-JA-   ********************
+;
+;\\\\---pervoya cifra-tip obrabotki(ESLI = 0, ne delaet)---////
+;////----------vtoraya cifra-ocheriodnost obrabotki--------\\\\
+;
+;======  TORCOVKA:
+;  esli pripusk men'she shaga, to delaet bez spirali za odin shag
+;
+;======  OBRABOTKA VNUTRI (odinakovaya dl'a vs'eh obrabotok)
+;  1.ROSTOCHKA
+;     - esli R22==1 i R3==0 standartno, frezeruet vintom
+;     - esli R22==2 i R3>0 frezeruet shagami pod uglom =R3
+;       shag standartno stavim v parametrah frezi. Rabotaet i 
+;       s faskoy toyge frezoy i s faskoy fr15gr.
+;  2.FASKA VNUTRI
+;     - esli R15==1, delaet shagami glubinoy = R35
+;       vikluchaem M01 i delaem fasku kak obichno do konca
+;       !!! esli stavim galku na M01 (VLIYANIE NA PROGRAMMU) to
+;       posle pervogo oborota programma ostanovica. v soobschenii
+;       budet napisano kakie parametri mogno pomeniat'. snachala 
+;       po priamoy edet na startovuyu tochku. potom delaet
+;       fasku ot 1-y do 2-y tochki.
+
+;     - esli R15==2, delaet frezoy 75 gradusov. R35 ne uchituet.
+;       delaet na vs'u glubinu plastini (10.67mm).esli postavim
+;       R87 bol'she nul'a to perviy prohod delit na dva, a
+;       sleduyushie delaet s shagom = R87
+;
+;=====  OBRABOTKA S NARUGI  ==================================
+; KAZAH 
+;     - R79 (us) stavim = 0
+;     - R52 stavim = 5
+;     - R67 stavim = 5
+;     - R17 (dlinna usa) stavim = 0
+;     - R18 stavim razmer pritupleniya
+;     - parametri USa mogno ne redaktirovat'
+;     - programma uchitivaet  R91, R62
+;
+; C2   (((((RABOTAET 2-YA FASKA)))))))
+;     - tol'ko melkie shagi
+;     - R79 (us) stavim = 0
+;     - R52 stavim = 1
+;     - R17 (dlinna usa) stavim = 0
+;     - R18 stavim razmer pritupleniya
+;     - parametri USa mogno ne redaktirovat'
+;     - programma uchitivaet  R91, R62
+;
+; C3  - ODNA FREZA US I FASKA (((((RABOTAET 2-YA FASKA)))))
+;    US
+;        - R79(us) stavim = 1
+;        - delaet shagami (R73=1(za odin prohod),R73=2(za dva))
+;    FASKA
+;        - R52(faska) stavim = 1
+;        - freza usa = freza faska, vs'e standartno
+;
+; C3  - S FREOY 15 gradusov ->(PERVIY US)<- (RABOTAET 2-YA FASKA)
+;    US
+;        - R79(us) stavim = 1
+;        - delaet shagami (R73=1(za odin prohod),R73=2(za dva))
+;    FASKA
+;        - R52(faska) stavim = 2
+;        - PROVERIT' PLASTINI i zdelat' korekciyu R192,R211
+;
+; C3  - S FREOY 15 gradusov ->(PERVAYA FASKA)<- (RABOTAET 2-YA FAS;       KA)
+;     - VISTAVL'AEM ocheriodnost obrabotki -- FASKA, POTOM US
+;     - R79 stavim = 3
+;     - R52 stavim = 3
+;    FASKA
+;        - PROVERIT' PLASTINI i zdelat' korekciyu R192,R211
+;        - snachala zdelaet predvaritel'no us, po spirali fiksirov;          anim shagom = 2.87 potom budet delat' fasku 
+;    US
+;        - R73=1
+;
+; C3  - NERGAVIEYKA FREZOY 19 GRAD  (NErabotaet 2-ya faska)
+;     - dopolnitel'nie parametri - R215,R216,R217,R218
+;     - VISTAVL'AEM ocheriodnost obrabotki -- FASKA, POTOM US
+;     - R79 stavim = 4
+;     - R52 stavim = 4
+;    FASKA
+;        - snacala delaet predvaritelno us, potom fasku
+;    US
+;        - US delaet za odin prohod, i neskol'ko melkih shagov
+;          faski chtobi ubrat' radius posle fasochnoy frezi
+;        - R73 = 1
+;
+;=====  2-YA FASKA  =====
+;(C2,C3-STANDART,C3-FR15GRAD,KAZAH(2-ya, NO NE 3-ya!  :)   )
+;   - vkl'uchaem R67 
+;   - V opisanii trubi: R9,R88,R8
+;   - zapolniaem instrument dlia 2-y faski
+;   - viiikluchaem M01 i delaem fasku kak obichno do konca
+;   !!! esli stavim galku na M01 (VLIYANIE NA PROGRAMMU) to
+;   posle pervogo oborota programma ostanovica. v soobschenii
+;   budet napisano kakie parametri mogno pomeniat'. snashala 
+;   po G2 ili po G3 edet na startovuyu tochku. potom delaet 
+;   fasku ot 1-y do 2-y tochki, perviy robochiy prohod posle
+;   izmeneniy idet po G3
+;   ----- (dlia KAZAH ne rabotaet) ----
+;
+;
+N89 GOTOF _NHN_
+;
+;proveriaet stoit li stol rovno
+;predupregdaet o smene privjazki
+;ispolzuem peremennuju v kotoroj zapisana nasha
+;budushaja priviazka, R38=2 ;(G54)=2,(G55)=3,(G56)=4,(G57)=5
+;$P_UIFRNUM    -kakoi nomer privjazki v tablice seichas
+;R92     -nomer sootvetstvuet g54 ili g55 ili g56 ili g57
+;R93   -pologenie v tablice buduchej priviazki
+;R94  -nomer buduschei priv. g54 ili g55 ili g56 ili g57
+N90 IF($P_UIFRNUM==1)
+N91     R92=54
+N92 ENDIF
+N93 IF($P_UIFRNUM==2)
+N94    R92=55
+N95 ENDIF
+N96 IF($P_UIFRNUM==3)
+N97    R92=56
+N98 ENDIF
+N99 IF($P_UIFRNUM==4)
+N100    R92=57
+N101 ENDIF
+N102 IF(R38==2)
+N103    R93=1
+N104    R94=54
+N105 ENDIF
+N106 IF(R38==3)
+N107    R93=2
+N108    R94=55
+N109 ENDIF
+N110 IF(R38==4)
+N111    R93=3
+N112    R94=56
+N113 ENDIF
+N114 IF(R38==5)
+N115    R93=4
+N116    R94=57
+N117 ENDIF
+N118 IF($P_UIFRNUM<>R93)
+N119   MSG("smena  -G"<<R92<<"-  na  -G"<<R94<<"- , nagmi start!")
+N120   M00
+N121 ENDIF
+N122 IF NOT(($P_UIFR[R93,B,TR]==0) OR ($P_UIFR[R93,B,TR]==90) OR ($P_UIFR[R93,B,TR]==180) OR ($P_UIFR[R93,B,TR]==270))
+N123 MSG("Priviazka stola NE ravna 0, 90, 180, 270 gradusam!!!  Esli vse ok gmi start")
+N124 M00
+N125 ENDIF
+N126 IF(ROUND($AA_IM[B]*10000)/10000<>$P_UIFR[R93,B,TR])
+N127   IF(R92<>R94)
+N128      MSG("POVOROT STOLA, smena  -G"<<R92<<"-  na  -G"<<R94)
+N129      M00
+N130   ELSE
+N131      MSG("POVOROT STOLA")
+N132      M00
+N133   ENDIF
+N134 ENDIF
+;
+N135 G[8]=R38
+N136 _NHN_:
+;
+;
+;****************************************************************
+;*******           TORCOVKA              ************************
+;****************************************************************
+;
+N137 IF(R14==0)  GOTOF POISK
+N138 IF(R11>=R9) GOTOF Z_ALARM1
+N139 G0 B0
+N140 IF(R14<=R43)
+N141   MSG("TORCOVKA ZA 1 RAZ:  PRIPUSK="<<R14<<",  S="<<R47<<",  F="<<R48)
+N142 ELSE
+N143   MSG("TORCOVKA SPIRAL:  PRIPUSK="<<R14<<",  S="<<R47<<",  F="<<R48)
+N144 ENDIF
+N145 T=R40 
+N146 M6 D1
+N147 G17 G90 G64 G94
+N148 IF($AA_IW[Z]<R189)
+N149   G0 Z=R189 W0
+N150 ENDIF
+N151 IF((R11/2-R41/2-R188)<0)
+N152 G0 Y0 X0 W0
+N153 ELSE
+N154 G0 Y=R11/2-R41/2-R188 X0 W0
+N155 ENDIF
+N156 M3 S=R47
+N157 G0 Z=R189
+;
+N158 IF R46==1
+N159   M8
+N160 ENDIF
+N161 IF R46==2
+N162   M7
+N163 ENDIF
+;
+N164 IF(R14<=R43)
+N165   MSG("TORCOVKA ZA 1 RAZ: PRIPUSK="<<R14)
+N166   R14=0
+N167   G1 Z=R14 F=R190
+N168   Y=R9/2-R41/2+R42 F=R48/2
+N169   GOTOF ZA_RAZ
+N170 ENDIF
+N171 MSG("TORCOVKA SPIRAL: PRIPUSK="<<R14)
+N172 G1 Z=R14 F=R190
+N173 Y=R9/2-R41/2+R42   
+N174 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z0 TURN=(R14/R43)-1 F=R48
+N175 ZA_RAZ:
+N176 G[1]=R78 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R48
+N177 IF((R40==R20)AND(R22==1.1))OR((R40==R70)AND(R79==1.1))OR((R40==R60)AND(R52==3.1))OR((R40==R60)AND(R52==1.1)AND(R17==0))
+N178   R165=$AA_IW[Y]
+N179   R166=$AA_IW[X]   
+N180   GOTOF METKA3
+N181 ENDIF     
+N182 G0 Z=R189
+N183 M9
+N183 METKA3:
+;
+;--------------------------------------
+;
+;
+N184 POISK:
+N185 IF(R22==1.1) GOTOF Z_PROBA_RASTOCHKA
+N186 IF(R22==2.1) GOTOF Z_RASTOCHKA_POD_UGLOM
+N187 IF(R22==3.1) GOTOF Z_RASTOCHKA_SHAGAMI
+N188 IF(R15==1.1) GOTOF Z_FASK_VNUT_MELK_SHAGI
+N189 IF(R15==2.1) GOTOF Z_FASKA_VNUTRI_FR75GR
+N190 IF(R79==1.1)OR(R79==4.1) GOTOF US
+N191 IF(R52==1.1)AND(R17<>0) GOTOF Z_FAS_NAR_C3_MELKIE_SHAG
+N192 IF(R52==1.1)AND(R17==0) GOTOF Z_FAS_NAR_C2_MELK_SHAG
+N193 IF((R52==2.1)OR(R52==3.1))AND(R17>0) GOTOF Z_FASKA_NAR_FR15GR
+N194 IF(R52==2.1)AND(R17==0) GOTOF Z_FAS_NAR_C2_FR15GR
+N195 IF(R52==4.1) GOTOF Z_FASKA_NAR_FR_19_GR
+N196 IF(R52==5.1)AND(R17==0) GOTOF Z_1_YA_FAS_KAZAH_
+N197 IF(R67==1.1) GOTOF VTORAYA_FASKA
+N198 IF(R67==5.1) GOTOF Z_2_YA_FASKA_KAZAH_
+;
+N199 IF(R22==1.2) GOTOF Z_PROBA_RASTOCHKA
+N200 IF(R22==2.2) GOTOF Z_RASTOCHKA_POD_UGLOM
+N201 IF(R22==3.2) GOTOF Z_RASTOCHKA_SHAGAMI
+N202 IF(R15==1.2) GOTOF Z_FASK_VNUT_MELK_SHAGI
+N203 IF(R15==2.2) GOTOF Z_FASKA_VNUTRI_FR75GR
+N204 IF(R79==1.2)OR(R79==3.2)OR(R79==4.2) GOTOF US
+N205 IF(R52==1.2)AND(R17<>0) GOTOF Z_FAS_NAR_C3_MELKIE_SHAG
+N206 IF(R52==1.2)AND(R17==0) GOTOF Z_FAS_NAR_C2_MELK_SHAG
+N207 IF((R52==2.2)OR(R52==3.2))AND(R17>0) GOTOF Z_FASKA_NAR_FR15GR
+N208 IF(R52==2.2)AND(R17==0) GOTOF Z_FAS_NAR_C2_FR15GR
+N209 IF(R52==4.2) GOTOF Z_FASKA_NAR_FR_19_GR
+N210 IF(R52==5.2)AND(R17==0) GOTOF Z_1_YA_FAS_KAZAH_
+N211 IF(R67==1.2) GOTOF VTORAYA_FASKA
+N212 IF(R67==5.2) GOTOF Z_2_YA_FASKA_KAZAH_
+;
+N213 IF(R22==1.3) GOTOF Z_PROBA_RASTOCHKA
+N214 IF(R22==2.3) GOTOF Z_RASTOCHKA_POD_UGLOM
+N215 IF(R22==3.3) GOTOF Z_RASTOCHKA_SHAGAMI
+N216 IF(R15==1.3) GOTOF Z_FASK_VNUT_MELK_SHAGI
+N217 IF(R15==2.3) GOTOF Z_FASKA_VNUTRI_FR75GR
+N218 IF(R79==1.3)OR(R79==3.3)OR(R79==4.3) GOTOF US
+N219 IF(R52==1.3)AND(R17<>0) GOTOF Z_FAS_NAR_C3_MELKIE_SHAG
+N220 IF(R52==1.3)AND(R17==0) GOTOF Z_FAS_NAR_C2_MELK_SHAG
+N221 IF((R52==2.3)OR(R52==3.3))AND(R17>0) GOTOF Z_FASKA_NAR_FR15GR
+N222 IF(R52==2.3)AND(R17==0) GOTOF Z_FAS_NAR_C2_FR15GR
+N223 IF(R52==4.3) GOTOF Z_FASKA_NAR_FR_19_GR
+N224 IF(R52==5.3)AND(R17==0) GOTOF Z_1_YA_FAS_KAZAH_
+N225 IF(R67==1.3) GOTOF VTORAYA_FASKA
+N226 IF(R67==5.3) GOTOF Z_2_YA_FASKA_KAZAH_
+;
+N227 IF(R22==1.4) GOTOF Z_PROBA_RASTOCHKA
+N228 IF(R22==2.4) GOTOF Z_RASTOCHKA_POD_UGLOM
+N229 IF(R22==3.4) GOTOF Z_RASTOCHKA_SHAGAMI
+N230 IF(R15==1.4) GOTOF Z_FASK_VNUT_MELK_SHAGI
+N231 IF(R15==2.4) GOTOF Z_FASKA_VNUTRI_FR75GR
+N232 IF(R79==1.4)OR(R79==3.4)OR(R79==4.4) GOTOF US
+N233 IF(R52==1.4)AND(R17<>0) GOTOF Z_FAS_NAR_C3_MELKIE_SHAG
+N234 IF(R52==1.4)AND(R17==0) GOTOF Z_FAS_NAR_C2_MELK_SHAG
+N235 IF(R52==2.4)AND(R17>0) GOTOF Z_FASKA_NAR_FR15GR
+N236 IF(R52==2.4)AND(R17==0) GOTOF Z_FAS_NAR_C2_FR15GR
+N237 IF(R52==4.4) GOTOF Z_FASKA_NAR_FR_19_GR
+N238 IF(R52==5.4)AND(R17==0) GOTOF Z_1_YA_FAS_KAZAH_
+N239 IF(R67==1.4) GOTOF VTORAYA_FASKA
+N240 IF(R67==5.4) GOTOF Z_2_YA_FASKA_KAZAH_
+;
+N241 IF(R79==1.5)OR(R79==3.5)OR(R79==4.5) GOTOF US
+N242 IF(R15==1.5) GOTOF Z_FASK_VNUT_MELK_SHAGI
+N243 IF(R15==2.5) GOTOF Z_FASKA_VNUTRI_FR75GR
+N244 IF(R67==1.5) GOTOF VTORAYA_FASKA
+N245 IF(R67==5.5) GOTOF Z_2_YA_FASKA_KAZAH_
+;
+N246 GOTOF KONEC
+;
+;
+;****************************************************************
+;*******        PROBA_RASTOCHKA          ************************
+;****************************************************************
+;
+N247 Z_PROBA_RASTOCHKA: 
+N248 IF(R11>=R10) GOTOF Z_ALARM2
+N249 G0 B0
+N250 MSG("ROSTOCHKA:    Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",   (SHAG="<<R23<<"),     S="<<R27<<",    F="<<R28)
+N251 IF(R40==R20)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA1
+N252 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R20
+N253     M00
+N254 ENDIF
+N255 T=R20 
+N256 M6 D1
+N257 G17 G90 G64 G94
+N258 IF($AA_IW[Z]<R189)
+N259   G0 Z=R189 W0
+N260 ENDIF
+N261 IF((R11/2-R21/2-R188)<0)
+N262 G0 Y0 X0 W0
+N263 ELSE
+N264 G0 Y=R11/2-R21/2-R188 X0 W0
+N265 ENDIF
+N266 G0 Z=R189
+N267 M3 S=R27
+N268 BEZ_VIEZDA1:
+N269 G0 Z0.5
+N270 M3 S=R27
+;
+N271 IF R26==1
+N272   M8
+N273 ENDIF
+N274 IF R26==2
+N275   M7
+N276 ENDIF
+;
+N277 MSG("ROSTOCHKA:     Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",  SHAG="<<R23)
+N278 Y=R10/2-R21/2 F=R28/2  
+N279 G1 Z0 F=R190
+N280 G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z=-R12-R16 TURN=((R12+R16)/R23)-1 F=R28
+N281 G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N282 IF((R11/2-R21/2-R188)<0)
+N283   G0 Y0
+N284 ELSE
+N285   G0 Y=R11/2-R21/2-R188
+N286 ENDIF
+;
+N287 IF R81==0;DELAET LI FASOCHKU
+N288   IF(R15==1.2) OR (R15==1.3) OR (R15==1.4);BEZ VIEZDA
+N289     R44=$AA_IW[Y]
+N290     R45=$AA_IW[X]   
+N291     GOTOF METKA1
+N292   ENDIF
+N293   G0 Z=R189
+N294   M9
+N295   GOTOF METKA1
+N293 ENDIF 
+;PRITUPLENIE(FASOCHKA)
+N294 MSG("SNIATIE FASOCHKI")
+N294 G0 Z=-(R16-R16*COS(45))
+N295 Y=R10/2-R21/2+(R16-R16*COS(45))+R81 F=R28/2
+N296 G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N297 IF((R11/2-R21/2-R188)<0)
+N298     G0 Y0
+N299 ELSE
+N300     G0 Y=R11/2-R21/2-R188
+N301 ENDIF
+N302 G0 Z=R189
+N303 M9
+N304 METKA1:
+;
+N305 STOPRE
+N306 R22=0
+N307 GOTOB POISK
+;---------------------------------------
+;
+N308 
+N309 
+;****************************************************************
+;*******     RASTOCHKA_POD_UGLOM        ************************
+;****************************************************************
+
+;
+N310 Z_RASTOCHKA_POD_UGLOM:
+N311 IF R3==0 GOTOF Z_ALARM10
+N312 IF R11>=R10 GOTOF Z_ALARM2
+N313 G0 B0
+N314 MSG("RASTOCHKA S UGLOM="<<R3<<"gr,  Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",   (SHAG="<<R23<<"),     S="<<R27<<",    F="<<R28)
+N315 IF(R40==R20)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA1
+N316 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R20
+N317     M00
+N318 ENDIF
+N319 T=R20 
+N320 M6 D1
+N321 G17 G90 G64 G94
+N322 IF($AA_IW[Z]<R189)
+N323   G0 Z=R189 W0
+N324 ENDIF
+N325 IF((R11/2-R21/2-R188)<0)
+N326 G0 Y0 X0 W0
+N327 ELSE
+N328 G0 Y=R11/2-R21/2-R188 X0 W0
+N329 ENDIF
+N330 G0 Z=R189
+N331 M3 S=R27
+N332 BEZ_VIEZDA1:
+N333 G0 Z0.5
+N334 M3 S=R27
+;
+N335 M8
+;
+N336 MSG("RASTOCHKA POD UGLOM="<<R3<<"gr,   Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",  SHAG="<<R23)
+N337 IF((R11/2-R21/2-R188)<0)
+N338     G0 Y0 X0 W0
+N339 ELSE
+N340     G0 Y=R11/2-R21/2-R188 X0 W0
+N341 ENDIF
+N342 G1 Z0 F=R190
+N343 R227=0
+N344 R228=0
+;
+N345 WHILE R227<R16
+N346     R227=R227+R23
+N347     IF R227>R16
+N348         R227=R16
+N349     ENDIF
+N350     G1 Z=-R227 F=R28
+N351     Y=R10/2-R21/2
+N352     G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N353     IF((R11/2-R21/2-R188)<0)
+N354         G0 Y0
+N355     ELSE
+N356         G0 Y=R11/2-R21/2-R188
+N357     ENDIF
+N358 ENDWHILE
+N359 WHILE R227<R12+R16
+N360     R227=R227+R23
+N361     IF R227>R12+R16
+N362         R227=R12+R16
+N363     ENDIF
+N364     G1 Z=-R227 F=R28
+N365     R228=TAN(R3)*(R227-R16)
+N366     Y=R10/2-R21/2-R228
+N367     G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N368     IF((R11/2-R21/2-R188)<0)
+N369         G0 Y0
+N370     ELSE
+N371         G0 Y=R11/2-R21/2-R188
+N372     ENDIF
+N373 ENDWHILE
+;
+N374 IF R81==0;DELAET LI FASKU
+N375   IF(R15==1.2) OR (R15==1.3) OR (R15==1.4);BEZ VIEZDA
+N376     R44=$AA_IW[Y]
+N377     R45=$AA_IW[X]
+N378     GOTOF METKA1
+N379   ENDIF
+N380   G0 Z=R189
+N381   M9
+N382   GOTOF METKA1
+N380 ENDIF
+;PRITUPLENIE(FASOCHKA)
+N381  MSG("SNIATIE FASOCHKI")
+N381 G0 Z=-(R16-R16*COS(45))
+N382 Y=R10/2-R21/2+(R16-R16*COS(45))+R81 F=R28/2
+N383 G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N384 IF((R11/2-R21/2-R188)<0)
+N385     G0 Y0
+N386 ELSE
+N387     G0 Y=R11/2-R21/2-R188
+N388 ENDIF 
+N389 G0 Z=R189
+N390 M9
+N391 METKA1:
+;
+N392 STOPRE
+N393 R22=0
+N394 GOTOB POISK
+;---------------------------------------
+;****************************************************************
+;*******     RASTOCHKA_SHAGAMI           ************************
+;****************************************************************
+;
+N395 Z_RASTOCHKA_SHAGAMI:
+N396 IF R11>=R10 GOTOF Z_ALARM2
+N397 G0 B0
+N398 MSG("RASTOCHKA SHAGAMI,  Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",   (SHAG="<<R23<<"),     S="<<R27<<",    F="<<R28)
+N399 IF(R40==R20)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA1
+N400 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R20
+N401     M00
+N402 ENDIF
+N403 T=R20 
+N404 M6 D1
+N405 G17 G90 G64 G94
+N406 IF($AA_IW[Z]<R189)
+N407   G0 Z=R189 W0
+N408 ENDIF
+N409 IF((R11/2-R21/2-R188)<0)
+N410 G0 Y0 X0 W0
+N411 ELSE
+N412 G0 Y=R11/2-R21/2-R188 X0 W0
+N413 ENDIF
+N414 G0 Z=R189
+N415 M3 S=R27
+N416 BEZ_VIEZDA1:
+N417 G0 Z0.5
+N418 M3 S=R27
+;
+N419 IF R26==1
+N420   M8
+N421 ENDIF
+N422 IF R26==2
+N423   M7
+N424 ENDIF
+;
+N425 MSG("RASTOCHKA SHAGAMI,   Dp="<<R10<<",    L="<<R12<<"+"<<R16<<",  SHAG="<<R23)
+N426 IF((R11/2-R21/2-R188)<0)
+N427     G0 Y0 X0 W0
+N428 ELSE
+N429     G0 Y=R11/2-R21/2-R188 X0 W0
+N430 ENDIF
+N431 G1 Z0 F=R190
+N432 R227=0
+N433 R228=0
+N434 R96=(R10/2-R21/2-$AA_IW[Y])/2
+;
+N434 WHILE R227<R16+R12
+N435     R227=R227+R23
+N436     IF R227>R16+R12
+N437         R227=R16+R12
+N438     ENDIF
+N439     G1 Z=-R227 F=R28
+N440     G[1]=R29 X=0 Y=R10/2-R21/2 CR=R96 F=R28
+N441     G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N442     IF((R11/2-R21/2-R188)<0)
+N443         G0 Y0
+N444     ELSE
+N445         G0 Y=R11/2-R21/2-R188
+N446     ENDIF
+N447 ENDWHILE
+;
+N448 IF R81==0 ; DELAET LI FASOCHKU
+N449    IF(R15==1.2) OR (R15==1.3) OR (R15==1.4);DEZ VIEZDA
+N450       R44=$AA_IW[Y]
+N451       R45=$AA_IW[X]
+N452       GOTOF METKA1
+N453    ENDIF
+N454    G0 Z=R189
+N455    M9
+N454    GOTOF METKA1
+N454 ENDIF 
+;PRITUPLENIE(FASOCHKA)
+N455  MSG("SNIATIE FASOCHKI")
+N455 G0 Z=-(R16-R16*COS(45))
+N456 Y=R10/2-R21/2+(R16-R16*COS(45))+R81 F=R28/2
+N457 G[1]=R29 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R28
+N458 IF((R11/2-R21/2-R188)<0)
+N459     G0 Y0
+N460 ELSE
+N461     G0 Y=R11/2-R21/2-R188
+N462 ENDIF
+N463 G0 Z=R189
+N464 M9
+N465 METKA1:
+;
+N466 STOPRE
+N467 R22=0
+N468 GOTOB POISK
+;---------------------------------------
+;
+;
+;****************************************************************
+;*******      FASK_VNUT_MELK_SHAGI       ************************
+;****************************************************************
+;
+N469 Z_FASK_VNUT_MELK_SHAGI:
+N470 R229=R10
+N471 IF R3>0
+N472     R229=R229-2*TAN(R3)*R12
+N473 ENDIF
+N474 G0 B0
+N475 R1=90     ;NACHAL0 V GRADUSAH (1-YA TOCHKA)
+N476 R2=90     ;KONEC V GRADUSAH (2-YA TOCHKA)
+N477 R124=ROUND((TAN(90-R13)*(R229/2-R11/2))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+N478 R125=0
+N479 IF R3>0
+N480     MSG("Faska vnutri melkimi shagami posle rostochki s UGLOM ="<<R3<<"gradusa. Nagmi start")
+N481     M00
+N482 ENDIF
+N483 MSG("FASKA_VNUTRI_MELKIE_SHAGI:  "<<R13<<"grad,   Lfaski="<<R124<<",   S="<<R39<<",   F="<<R50)
+N484 IF R81==0
+N485 IF(R20==R30)AND((R15==1.2) OR (R15==1.3) OR (R15==1.4))AND($AA_IW[Y]==R44)AND($AA_IW[X]==R45) GOTOF BEZ_VIEZDA
+N486 ENDIF
+N487 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R30
+N488     M00
+N489 ENDIF
+N490 T=R30 
+N491 M6 D1
+N492 G17 G90 G64 G94
+N493 IF($AA_IW[Z]<R189)
+N494   G0 Z=R189 W0
+N495 ENDIF
+N496 IF((R11/2-R31/2-R188)<0)
+N497   G0 Y0 X0 W0
+N498 ELSE
+N499   G0 Y=R11/2-R31/2-R188 X0 W0
+N500 ENDIF
+N501 G0 Z=R189
+N502 BEZ_VIEZDA:
+N503 M3 S=R39
+N504 TRANS Z=-R12-R16
+N505 G1 Z0 F=R190
+;
+N506 IF R37==1
+N507   M8
+N508 ENDIF
+N509 IF R37==2
+N510   M7
+N511 ENDIF
+;
+;N438 MSG("FASKA_VNUTRI_MELKIE_SHAGI:  "<<R13<<"grad,   Lfaski="<<R124)
+;
+N512 START_FASKA_VNUTRI:
+N513 STOPRE
+N514 IF(R125<=R124)
+N515   R125=R125+R35      ; PO Z
+N516   R126=TAN(R13)*R125 ; PO Y 
+N517   R231=R229/2-R31/2-R126;RADIUS
+N518   IF((R11/2-R31/2-R188)>0)
+N519     R232=R11/2-R31/2-R188;RADIUS Z BEZOPASNIM
+N520   ELSE
+N521     R232=0;CENTR TRUBI
+N522   ENDIF
+N523   R233=R232*COS(R1);(X) PERVOJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N524   R234=R232*SIN(R1);(Y) PERVOJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N525   R235=R231*COS(R1);(X) PERVOJ TOCHKI
+N526   R236=R231*SIN(R1);(Y) PERVOJ TOCHKI
+N527   R237=R231*COS(R2);(X) VTOROJ TOCHKI
+N528   R238=R231*SIN(R2);(Y) VTOROJ TOCHKI
+N529   R239=R232*COS(R2);(X) VTOROJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N530   R240=R232*SIN(R2);(Y) VTOROJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N531   R124=ROUND((TAN(90-R13)*(R229/2-R11/2))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+;
+N532   IF(R1==90)AND(R2==90);KAK OBICHNAYA FASKA
+N533      MSG("FASKA OBICHNAYA:  "<<R13<<"grad,  Lfaski ="<<R124)
+N534      G1 Z=-R125 F=R50
+N535      G1 Y=R229/2-R31/2-R126 F=R50/2
+N536      G[1]=R49 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R50
+N537      IF((R11/2-R31/2-R188)<0)
+N538         G0 Y0 X0 W0
+N539      ELSE
+N540         G0 Y=R11/2-R31/2-R188 X0 W0
+N541      ENDIF
+N542   ENDIF
+;
+N543   IF(R1<>90)OR(R2<>90)
+N544      MSG("1-toch R1="<<R1<<",  2-toch R2="<<R2)
+
+N545     IF($AA_IW[X]==ROUND(R232*COS(R1)*10000)/10000) AND ($AA_IW[Y]==ROUND(R232*SIN(R1)*10000)/10000) GOTOF BEZ_IZMENENIY_2
+N546     G1 X=R233 Y=R234 F=R50
+
+N547     BEZ_IZMENENIY_2:
+N548     G1 Z=-R125 F=R50
+N549     G1 X=R235 Y=R236 F=R50/2;PERVOJA TOCHKA
+N550     G3 X=R237 Y=R238 I=AC(0) J=AC(0) F=R50
+N551     G0 X=R239 Y=R240;VTORAJA BEZOPASNAJA
+N552     IF(R125<=R124)
+N553        R125=R125+R35      ; PO Z
+N554        R126=TAN(R13)*R125 ; PO Y 
+N555        R231=R229/2-R31/2-R126;RADIUS
+N556        IF((R11/2-R31/2-R188)>0)
+N557           R232=R11/2-R31/2-R188;RADIUS Z BEZOPASNIM
+N558        ELSE
+N559           R232=0;CENTR TRUBI
+N560        ENDIF
+N561        R233=R232*COS(R1);(X) PERVOJ TOCHKI BEZOPPASNOGO ROST
+N562        R234=R232*SIN(R1);(Y) PERVOJ TOCHKI BEZOPPASNOGO ROST
+N563        R235=R231*COS(R1);(X) PERVOJ TOCHKI
+N564        R236=R231*SIN(R1);(Y) PERVOJ TOCHKI
+N565        R237=R231*COS(R2);(X) VTOROJ TOCHKI
+N566        R238=R231*SIN(R2);(Y) VTOROJ TOCHKI
+N567        R239=R232*COS(R2);(X) VTOROJ TOCHKI BEZOPPASNOGO ROST
+N568        R240=R232*SIN(R2);(Y) VTOROJ TOCHKI BEZOPPASNOGO ROST
+N569        G0 X=R239 Y=R240
+N570        G1 Z=-R125 F=R50
+N571        G1 X=R237 Y=R238 F=R50/2;VTORAYA TOCHKA
+N572        G2 X=R235 Y=R236 I=AC(0) J=AC(0) F=R50
+N573        G0 X=R233 Y=R234;PERVAYA BEZOPASNAJA
+N574     ENDIF
+N575   ENDIF
+;
+N576   MSG("1-toch R1="<<R1<<",2-toch R2="<<R2<<",Shag R35="<<R35<<",otskok R188="<<R188<<",grad faski R13="<<R13<<",konech D R11="<<R11)
+N577   M01
+N578   GOTOB START_FASKA_VNUTRI
+N579 ENDIF
+N580 TRANS
+N581 M9
+N582 G0 Z=R189
+;
+N583 STOPRE
+N584 R15=0
+N585 GOTOB POISK
+;
+;
+;****************************************************************
+;*******      FASKA_VNUTRI_FR75GR        ************************
+;****************************************************************
+;
+N586 Z_FASKA_VNUTRI_FR75GR:
+N587 R229=R10
+N588 IF R3>0
+N589     R229=R229-2*TAN(R3)*R12
+N590 ENDIF
+N591 G0 B0 
+N592 IF(R13<>15) GOTOF Z_ALARM3
+N593 R103=R33-((R33*SIN(270+R32))*(-1))  ;0.02725934
+N594 R104=R16*COS(270+R32);1.03527618 tochka po Z na radiuse R16
+N595 R105=R16-((R16*SIN(270+R32))*(-1))  ;0.13629669 tochka po Y na radiuse R16
+N596 R106=R33-(R33*COS(270+R32)) ;0.59294476 glubina ot kraya frezi do nachala priamogo uchastka
+N597 R107=COS(R32)*(R34-R33*2) ;10.67348038 glubina priamogo uchastka
+N598 R108=R106+R107; 11.41989054 perviy shag po Z
+N599 R109=R229/2-R11/2-R105 ;visota faski ot tochki peresecheniya
+N600 R110=TAN(90-R32)*R109 ;dlinna faski ot tochki peresecheniya
+N601 R111=SIN(R32)*(R34-R33*2) ;shag po Y (priamoy uchastok)
+N602 R112=R12+R104+R110 ;polnaya glubina s rostochkoy i faskoy
+N603 R113=R12+R104+R108 ;pervaya glybina
+N604 R214=0
+N605 IF(R87>0)
+N606    STOPRE
+N607    R107=R87
+N608    R111=SIN(R32)*R87
+N609    R214=1
+N610 ENDIF
+N611 R114=R113
+N612 R115=1;
+N613 R116=1;
+N614 R117=R229/2-R31/2-R105+R103+R0 ; perviy prohod po Y
+N615 WHILE(R114<=R112)
+N616   R114=R114+R107
+N617   R115=R115+1
+N618 ENDWHILE
+N619 IF R3>0
+N620     MSG("Faska vnutri frezoy 75grad posle rostochki s UGLOM ="<<R3<<"gradusa. Nagmi start")
+N621     M00
+N622 ENDIF
+N623 IF(R87>0)
+N624     R115=R115+1;
+N625     MSG("FASKA_VNUTRI_FR15GR: 1 SHAG/2, POTOM SHAG="<<R87<<",  S="<<R39<<", F="<<R50<<",  PROHODOV="<<R115)
+N626 ELSE
+N627     MSG("FASKA_VNUTRI_FR15GR:  S="<<R39<<", F="<<R50<<",  PROHODOV="<<R115)
+N628 ENDIF
+N629 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R30
+N630     M00
+N631 ENDIF
+N632 T=R30 
+N633 M6 D1
+N635 IF(R114>$TC_DP3[$TC_MPP6[9998,1],1]-40) GOTOF Z_ALARM4
+N636 G17 G90 G64 G94
+N637 IF($AA_IW[Z]<R189)
+N638   G0 Z=R189 W0
+N639 ENDIF
+N640 IF((R11/2-R31/2-R188)<0)
+N641 G0 Y0 X0 W0
+N642 ELSE
+N643 G0 Y=R11/2-R31/2-R188 X0 W0
+N644 ENDIF
+N645 M3 S=R39
+N646 G0 Z=R189 
+;
+N647 IF R37==1
+N648   M8
+N649 ENDIF
+N650 IF R37==2
+N651   M7
+N652 ENDIF;
+;
+N653 NACHALO_FR75GR:
+N654 IF(R87>0)
+N655     MSG("FASKA_VNUTRI_FR15GR:  1 SHAG/2, POTOM SHAG="<<R87<<",  PROHOD="<<R116<<"   IZ   "<<R115)
+N656 ELSE
+N657     MSG("FASKA_VNUTRI_FR15GR:   PROHOD="<<R116<<"   IZ    "<<R115)
+N658 ENDIF
+N659 PROHOD_NA_DVA:
+N660 IF(R87>0) AND (R214==1)
+N661    G1 Z=-(R113-R108/2) F=R190
+N662    GOTOF SHAG_NA_DVA
+N663 ENDIF
+N664 G1 Z=-R113 F=R190
+N665 SHAG_NA_DVA:
+N666 IF(R87>0)
+N667     MSG("FASKA_VNUTRI_FR15GR:  1 SHAG/2, POTOM SHAG="<<R87<<",  PROHOD="<<R116<<"   IZ   "<<R115)
+N668 ENDIF
+N669 G[1]=R49 X0 Y=R117 CR=(R117-$AA_IW[Y])/2 F=R50
+N670 G[1]=R49 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R50
+N671 IF((R11/2-R31/2-R188)<0)
+N672   G0 Y0 X0 W0
+N673 ELSE
+N674   G0 Y=R11/2-R31/2-R188 X0 W0
+N675 ENDIF
+N676 IF(R87>0) AND (R214==1) 
+N677     STOPRE
+N678     R214=0
+N679     R116=R116+1
+N680     GOTOB PROHOD_NA_DVA
+N681 ENDIF
+N682 IF(R113>=R112) GOTOF KONEC_FASKI_FR75GR
+N683 R113=R113+R107
+N684 R117=R117-R111+R213
+N685 R116=R116+1
+N686 GOTOB NACHALO_FR75GR
+N687 KONEC_FASKI_FR75GR:
+N688 M9
+N689 G0 Z=R189 
+;
+N690 STOPRE
+N691 R15=0
+N692 GOTOB POISK
+;
+;
+;
+;****************************************************************
+;*******                US               ************************
+;****************************************************************
+;
+N693 US:
+N694 IF(R79>4) AND (R52>4)
+N695     IF(R79<R52) GOTOF Z_ALARM9
+N696 ENDIF
+N697 IF(R79>3)AND(R79<4)AND(R52>3)AND(R52<4)
+N698     IF(R79<R52) GOTOF Z_ALARM9
+N699 ENDIF
+N700 G0 B0
+N701 R131=R9/2+R188+R71/2;* radius starta
+N702 R132=R10/2+R18+R71/2;*  chistovoj razmer
+N703 R133=SQRT(POT(R131)-POT(R132));start po(Y)
+N704 R134=R17+R72;* L-US + radius plastiny
+N705 R135=R134/R73;SHAG PO (Z)
+N706 R136=0
+N707 R224=R132+R215*SIN(R80)
+N708 R225=R132+R188
+N709 MSG("US:    tolshina="<<R18<<",   dlinna="<<R17<<"+"<<R72<<",  shagov="<<R73<<",    S="<<R74<<",   F="<<R75)
+N710 IF(R40==R70)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA2
+N711 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R70
+N712     M00
+N713 ENDIF
+N714 T=R70 
+N715 M6 D1
+N716 G17 G90 G64 G94
+N717 IF($AA_IW[Z]<R189)
+N718   G0 Z=R189 W0
+N719 ENDIF
+N720 G0 X=R132 Y=R133 W0
+N721 Z=R189
+N722 M3 S=R74
+N723 BEZ_VIEZDA2:
+N724 G0 Z0.5
+N725 G0 X=R132 Y=R133
+N726 G1 Z0 F=R190
+;
+N727 IF R77==1
+N728   M8
+N729 ENDIF
+N730 IF R77==2
+N731   M7
+N732 ENDIF
+;
+N733 MSG("US:    tolshina="<<R18<<",   dlinna="<<R17<<"+"<<R72<<",  shagov="<<R73)
+N734 WHILE(R136 < R134)
+N735       R136=R136 + R135
+N736       G0 X=R132 Y=R133
+N737       G1 Z=-R136 F=R75
+N738       G1 X=R132 Y0 F=R75
+N739       G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R75
+N740       G1 X=R132 Y-10 F=R75
+N741       G1 X=R132+R188 Y0 F=R190
+N742 ENDWHILE
+N743 IF(R79>4)AND(R79<5) GOTOF DODELKA_POD_FR19GR
+N745 IF(R52==1.1) OR (R52==1.2) OR (R52==1.3) OR (R52==1.4)
+N746     G0 X=R131
+N747     R137=$AA_IW[Y]
+N748     R138=$AA_IW[X]
+N749     GOTOF METKA2
+N750 ELSE
+N751     G0 Z=R189
+N752     GOTOF METKA2
+N753 ENDIF
+N755 DODELKA_POD_FR19GR:
+N756 R95=R132
+N756 WHILE (R95<R224)
+N757   R95=R95+R218
+N758   R134=R134+R218*TAN(R80-0.5)
+N759   G1 Z=-R134 F=R75
+N760   X=R95
+N761   G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R75
+N762   G0 X=R225
+N763 ENDWHILE
+;FASOCHKA NA USU
+N764 METKA2:
+N765 IF R85==0 GOTOF METKA4
+N764 MSG("PRITUPLENIE NA USU")
+N764 G0 Z=-(R72-R72*COS(45)) F=R75
+N765 G1 X=R132-(R72-R72*COS(45))-R85 Y0 F=R75
+N766 G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R75
+N767 G1 X=R132 Y-10 F=R75
+N768 G1 X=R132+R188 Y0 F=R190
+N770 G0 Z=R189
+N771 M9
+;
+N772 METKA4:
+N772 STOPRE
+N773 R79=0
+N774 GOTOB POISK
+;--------------------------------------
+;
+;****************************************************************
+;*******    FAS_NAR_C3_MELKIE_SHAG       ************************
+;****************************************************************
+;
+N775 Z_FAS_NAR_C3_MELKIE_SHAG:
+N776 G0 B0
+N777 IF(R67>=1)
+N778    R143=ROUND((TAN(R80)*(R88/2-R10/2-R18))*100)/100;dlinna 1-Y faski po Z (okruglena do desiatok 0.0)
+N779    MSG("C3 1-YA FASKA NARUGA MELKIE SHAGI:  "<<R80<<"grad,   Lfaski="<<R143<<",   S="<<R63<<",   F="<<R64) 
+N780 ELSE
+N781    R143=ROUND((TAN(R80)*(R9/2-R10/2-R18))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+N782    MSG("C3_FASKA_NARUGA_MELKIE_SHAGI:  "<<R80<<"grad,   Lfaski="<<R143<<",   S="<<R63<<",   F="<<R64)
+N783 ENDIF
+N784 R144=0
+N785 IF(R70==R60)AND((R52==1.2) OR (R52==1.3) OR (R52==1.4))AND($AA_IW[Y]==R137)AND($AA_IW[X]==R138) GOTOF BEZ_VIEZDA
+N786 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N787     M00
+N788 ENDIF
+N789 T=R60 
+N790 M6 D1
+N791 G17 G90 G64 G94
+N792 IF($AA_IW[Z]<=R189)
+N793   G0 Z=R189 W0
+N794 ENDIF
+N795 G0 X=R9/2+R61/2+R188 Y0 W0
+N796 G0 Z=R189
+N797 BEZ_VIEZDA:
+N798 M3 S=R63
+N799 TRANS Z=-R17-R72
+N800 G1 Z0 F=R190
+;;
+N801 IF(R66==1)
+N802   M8
+N803 ENDIF
+N804 IF(R66==2)
+N805   M7
+N806 ENDIF
+;
+N807 IF(R67>=1)
+N808   MSG("C3 1-YA FASKA NARUGA MELKIE SHAGI:  "<<R80<<"grad,   Lfaski="<<R143)
+N809 ELSE
+N810   MSG("C3 FASKA NARUGA MELKIE SHAGI:  "<<R80<<"grad,   Lfaski="<<R143)
+N811 ENDIF
+N812 WHILE(R144<R143)
+N813   R144=R144+R62      ; PO Z
+N814   G1 Z=-R144 F=R64
+N815   R145=TAN(90-R80)*R144 ; PO X
+N816   G1 X=R10/2+R61/2+R18+R145 F=R64/2
+N817   G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R64
+N818   G0 X=R9/2+R61/2+R188
+N819 ENDWHILE
+N820 TRANS
+;N777 IF(R67<>0)AND(R60==R173)
+;N777   R193=$AA_IW[Y]
+;N269   R194=$AA_IW[X]
+;N777   GOTOF METKA5
+;N777 ENDIF
+N821 G0 Z=R189
+N822 M9
+N823 METKA5:
+;
+N824 STOPRE
+N825 R52=0
+N826 GOTOB POISK
+;
+;****************************************************************
+;*******        FASKA_NAR_FR15GR         ************************
+;****************************************************************
+;
+N827 Z_FASKA_NAR_FR15GR:
+N828 IF(R80<>15) GOTOF Z_ALARM5
+N829 IF((R79>3) AND (R79<4)) AND ((R52>3) AND (R52<4))
+N830    IF(R79<R52) GOTOF Z_ALARM9
+N831 ENDIF
+N832 G0 B0
+N833 R148=R24-(R24*SIN(360-R80)*(-1))  ;0.59294476
+N834 R149=R72*COS(360-R80) ;3.86370331 tochka po Z na radiuse R72
+N835 R150=R72-(R72*SIN(360-R80)*(-1));2.96tochka poY naradiuseR72
+N836 R151=R24-(R24*COS(360-R80)) ;0.02725934 glubina ot kraya frezi do nachala priamogo uchastka
+N837 R152=SIN(R80)*(R19-R24*2);2.8728914glubina priamogo uchastka
+N838 R153=R151+R152; 2.90015074 perviy shag po Z
+N839 IF(R67>1)
+N840   R154=R88/2-R10/2-R18-R150;visotaFaskiOtTochki peresecheni 
+N841 ELSE
+N842   R154=R9/2-R10/2-R18-R150;visotaFaskiOtTochki peresecheniya
+N843 ENDIF
+N844 R155=TAN(R80)*R154 ;dlinna faski ot tochki peresecheniya
+N845 R156=COS(R80)*(R19-R24*2);10.7217shag poY (priamoy uchastok)
+N846 R157=R17+R149+R155 ;polnaya glubina s rostochkoy i faskoy
+N847 R158=R17+R149+R153-R192 ;pervaya glybina
+N848 R159=R158
+N849 R160=1;
+N850 R161=1;
+N851 R162=R10/2+R61/2+R150+R18+R191-R148 ; perviy prohod po Y
+N852 WHILE(R159<=R157)
+N853   R159=R159+R152
+N854   R160=R160+1
+N855 ENDWHILE
+N856 IF(R52==3.1)OR(R52==3.2)OR(R52==3.3)
+N857   MSG("CHERNOVAYA POD US:  S="<<R63<<", F="<<R64)
+N858 ELSE
+N859   IF(R67>1)
+N860      MSG("1-YA FASKA_NARUGA_FR15GR:  S="<<R63<<", F="<<R64<<",  PROHODOV="<<R160)
+N861   ELSE
+N862      MSG("FASKA_NARUGA_FR15GR:  S="<<R63<<", F="<<R64<<",  PROHODOV="<<R160)
+N863   ENDIF
+N864 ENDIF
+N865 R163=R9/2+R188+R61/2;* radius starta
+N866 R164=SQRT(POT(R163)-POT(R162));start po(Y)
+N867 IF(R40==R60)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA3
+N868 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N869     M00
+N870 ENDIF
+N871 T=R60 
+N872 M6 D1
+N873 G17 G90 G64 G94
+N874 IF($AA_IW[Z]<R189)
+N875   G0 Z=R189 W0
+N876 ENDIF
+N877 IF(R52==3.1)OR(R52==3.2)OR(R52==3.3)
+N878   G0 Y=R162 X0 W0
+N879 ELSE
+N880   G0 X=R162 Y=R164 W0
+N881 ENDIF
+N882 G0 Z=R189
+N883 BEZ_VIEZDA3:
+N884 M3 S=R63
+;
+N885 IF(R66==1)
+N886   M8
+N887 ENDIF
+N888 IF(R66==2)
+N889   M7
+N890 ENDIF
+;
+N891 IF(R52==3.1)OR(R52==3.2)OR(R52==3.3)
+N892   MSG("CHERNOVAYA POD US")
+N893   G1 Z0 F=R190
+N894   G1 Y=R162 X0 F=R190
+N895   G2 X=R162 Y0 Z=-R158 I=AC(0) J=AC(0) TURN=R158/R152 F=R64
+N896   IF(R79==0)   GOTOF KONEC_FASKI 
+N897 ENDIF
+N898 NACHALO:
+N899 IF(R67>1)
+N900   MSG("1-YA FASKA_NARUGA_FR15GR:  PROHOD="<<R161<<"   IZ    "<<R160)
+N901 ELSE
+N902   MSG("FASKA_NARUGA_FR15GR:  PROHOD="<<R161<<"   IZ    "<<R160)
+N903 ENDIF
+N904 G0 X=R162 Y=R164
+N905 G1 Z=-R158 F=R190
+N906 G1 X=R162 Y0 F=R64
+N907 G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R64
+N908 G1 X=R162 Y-10 F=R64
+N909 G1 X=R162+R188 Y0 F=R190  ;X=R162+R188(dlia plavnogo zahoda)
+N910 IF(R158>=R157) GOTOF KONEC_FASKI
+N911 R158=R158+R152-R211
+N912 R162=R162+R156
+N913 R161=R161+1
+N914 R164=SQRT(POT(R163)-POT(R162));start po(Y)
+N915 GOTOB NACHALO
+N916 KONEC_FASKI:
+N917 M9
+N918 G0 Z=R189
+;
+N919 STOPRE
+N920 R52=0
+N921 GOTOB POISK
+;---------------------------------------
+;
+;****************************************************************
+;***        FASKA_NAR_FR_19_GR         **************************
+;****************************************************************
+;
+N922 Z_FASKA_NAR_FR_19_GR: 
+N923 IF(R80<>19) GOTOF Z_ALARM8
+N924 G0 B0
+N925 R222=2.32  ;PERVAYA GLUBINA PLASTINI
+N926 R219=R9/2+R61/2+R188
+N927 R220=R10/2+R18+R61/2+0.2;nachalo po Y
+N928 R221=R215-R215*SIN(R80)
+N929 R221=R221-R72-R72*SIN(R80)
+N930 R221=R221*TAN(R80)
+N931 R221=R221+R17+R72+R222-0.2
+N932 R223=R9/2+R61/2-5  ;(5-priamoy uchastok,chtob ne delala
+;                        lishnih prohodov)
+N933 MSG("FASKA_NARUGA_FR_19_GR:  S="<<R63<<", F="<<R64)
+N934 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N935     M00
+N936 ENDIF
+N937 T=R60 
+N938 M6 D1
+N939 G17 G90 G64 G94
+N940 IF($AA_IW[Z]<R189)
+N941   G0 Z=R189 W0
+N942 ENDIF
+N943 G0 W0
+N944 G0 Y=R219 X0
+N945 G0 Z=R189
+N946 M3 S=R63
+N947 G1 Z0 F=R190
+;
+N948 IF(R66==1)
+N949   M8
+N950 ENDIF
+N951 IF(R66==2)
+N952   M7
+N953 ENDIF
+;
+N954 MSG("FASKA_NARUGA_FR_19_GR")
+N955 G1 Y=R220 F=R64
+N956 G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) Z=-R221 TURN=(R221/R216-1)
+N957 G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) 
+N958 G0 Y=R219
+N959 WHILE (R220<R223)
+N960    R220=R220+R217
+N961    R221=R221+R217*TAN(R80)
+N962    G1 Z=-R221 F=R64
+N963    Y=R220
+N964    G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0)
+N965    G1 Y=R219
+N966 ENDWHILE
+N967 M9
+N968 G0 Z=R189
+;
+N969 STOPRE
+N970 R52=0
+N971 GOTOB POISK
+;---------------------------------------
+;****************************************************************
+;*******       Z_FAS_NAR_C2_FR15GR       ************************
+;****************************************************************
+;
+N972 Z_FAS_NAR_C2_FR15GR:
+N973 G0 B0
+N974 R148=R24-(R24*SIN(360-R80)*(-1))  ;0.59294476
+N975 R149=0 ;tochka po Z
+N976 R150=R10/2+R18;tochka poY
+N977 R151=R24-(R24*COS(360-R80)) ;0.02725934 glubina ot kraya frezi do nachala priamogo uchastka
+N978 R152=SIN(R80)*(R19-R24*2);2.8728914glubina priamogo uchastka
+N979 R153=R151+R152; 2.90015074 perviy shag po Z
+N980 R154=R9/2-R10/2-R18;visotaFaski
+N981 R155=TAN(R80)*R154 ;dlinna faski ot tochki peresecheniya
+N982 R156=COS(R80)*(R19-R24*2);10.7217shag poY (priamoy uchastok)
+N983 R157=R149+R155 ;polnaya glubina faski
+N984 R158=R149+R153-R192 ;pervaya glybina
+N985 R159=R158
+N986 R160=1;
+N987 R161=1;
+N988 R162=R10/2+R61/2+R18+R191-R148 ; perviy prohod po Y
+N989 WHILE(R159<=R157)
+N990   R159=R159+R152
+N991   R160=R160+1
+N992 ENDWHILE
+N993 MSG("FASKA_NAR_C2_FR15GR:  S="<<R63<<", F="<<R64<<",  PROHODOV="<<R160)
+N994 R163=R9/2+R188+R61/2;* radius starta
+N995 R164=SQRT(POT(R163)-POT(R162));start po(Y)
+N996 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N997     M00
+N998 ENDIF
+N999 T=R60 
+N1000 M6 D1
+N1001 G17 G90 G64 G94
+N1002 IF($AA_IW[Z]<R189)
+N1003   G0 Z=R189 W0
+N1004 ENDIF
+N1005 M3 S=R63
+;
+N1006 IF(R66==1)
+N1007   M8
+N1008 ENDIF
+N1009 IF(R66==2)
+N1010   M7
+N1011 ENDIF
+;
+N1012 NACHALO:
+N1013 MSG("FASKA_NARUGA_FR15GR:  PROHOD="<<R161<<"   IZ    "<<R160)
+N1014 G0 X=R162 Y=R164
+N1015 G1 Z=-R158 F=R190
+N1016 G1 X=R162 Y0 F=R64
+N1017 G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R64
+N1018 G1 X=R162 Y-10 F=R64
+N1019 G1 X=R162+R188 Y0 F=R190  ;X=R162+R188(dlia plavnogo zahoda)
+N1020 IF(R158>=R157) GOTOF KONEC_FASKI
+N1021 R158=R158+R152-R211
+N1022 R162=R162+R156
+N1023 R161=R161+1
+N1024 R164=SQRT(POT(R163)-POT(R162));start po(Y)
+N1025 GOTOB NACHALO
+N1026 KONEC_FASKI:
+N1027 M9
+N1028 G0 Z=R189
+;
+N1029 STOPRE
+N1030 R52=0
+N1031 GOTOB POISK
+;---------------------------------------
+;
+;
+;****************************************************************
+;*******     FAS_NAR_C2_MELK_SHAG        ************************
+;****************************************************************
+;
+N1032 Z_FAS_NAR_C2_MELK_SHAG:
+N1033 G0 B0
+N1034 R55=R91-R62                 ;Rpl-SHAG
+N1035 R56=R91*COS(360-R80)        ;Rpl*(COS(360-ugol faski)
+N1036 R57=R56-R55                 ;
+N1037 R58=TAN(90-R80)*R57          
+N1038 R59=R91*SIN(360-R80)*(-1)
+N1039 R68=R91-R59-R58    ;POPRAVKA
+N1040 IF(R67>=1)
+N1041   R82=ROUND((TAN(R80)*(R88/2-R10/2-R18))*100)/100;dlinna 1-Y faski po Z (okruglena do desiatok 0.0)
+N1042   MSG("1-YA C2_FASKA_NARUGA_MELKIE_SHAGI:  "<<R80<<"grad,   Lfaski="<<R82<<",   S="<<R63<<",   F="<<R64<<",   prituplenie="<<R18)
+N1043 ELSE
+N1044   R82=ROUND((TAN(R80)*(R9/2-R10/2-R18))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+N1045   MSG("C2_FASKA_NARUGA_MELKIE_SHAGI:  "<<R80<<"grad,   Lfaski="<<R82<<",   S="<<R63<<",   F="<<R64<<",   prituplenie="<<R18)
+N1046 ENDIF
+N1047 R83=0 
+N1048 IF(R40==R60)AND(R52==1.1)AND($AA_IW[Y]==R165)AND($AA_IW[X]==R166) GOTOF BEZ_VIEZDA4
+N1049 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N1050     M00
+N1051 ENDIF
+N1052 T=R60 
+N1053 M6 D1
+N1054 G17 G90 G64 G94
+N1055 IF($AA_IW[Z]<R189)
+N1056   G0 Z=R189 W0 
+N1057 ENDIF
+N1058 G0 Y=R9/2+R61/2+R188 X0 W0
+N1059 M3 S=R63
+N1060 G0 Z=R189
+N1061 G1 Z0 F=R190
+N1062 BEZ_VIEZDA4:
+N1063 G0 Y=R9/2+R61/2+R188 X0 W0
+N1064 M3 S=R63
+;
+N1065 IF(R66==1)
+N1066   M8
+N1067 ENDIF
+N1068 IF(R66==2)
+N1069   M7
+N1070 ENDIF
+;
+N1071 IF(R67>=1)
+N1072   MSG("1-YA C2_FASKA_NARUGA_MELKIE_SHAGI:  "<<R80<<"grad,   Lfaski="<<R82<<",   prituplenie="<<R18)
+N1073 ELSE
+N1074   MSG("C2_FASKA_NARUGA_MELKIE_SHAGI:  "<<R80<<"grad,   Lfaski="<<R82<<",   prituplenie="<<R18)
+N1075 ENDIF
+N1076 WHILE(R83<=R82)  
+N1077   R83=R83+R62 ; PO Z
+N1078   R84=TAN(90-R80)*R83 ; PO Y
+N1079   G1 Z=-R83 F=R64
+N1080   G1 Y=R10/2+R61/2+R18+R84-R68 F=R64/2
+N1081   G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R64
+N1082   G0 Y=R9/2+R61/2+R188
+N1083 ENDWHILE
+N1084 IF(R67>1)AND(R60==R173)
+N1085   R193=$AA_IW[Y]
+N1086   R194=$AA_IW[X]
+N1087   GOTOF METKA4
+N1088 ENDIF
+N1089 M9
+N1090 G0 Z=R189
+N1091 METKA4:
+;
+N1092 STOPRE
+N1093 R52=0
+N1094 GOTOB POISK
+;---------------------------------------
+;
+;
+;****************************************************************
+;*******      Z_1_YA_FAS_KAZAH_          ************************
+;****************************************************************
+;
+N1095 Z_1_YA_FAS_KAZAH_:
+N1096 G0 B0
+N1097 R55=R91-R62                 ;Rpl-SHAG
+N1098 R56=R91*COS(360-R80)        ;Rpl*(COS(360-ugol faski)
+N1099 R57=R56-R55                 ;
+N1100 R58=TAN(90-R80)*R57          
+N1101 R59=R91*SIN(360-R80)*(-1)
+N1102 R68=R91-R59-R58    ;POPRAVKA
+N1103 R82=ROUND((TAN(R80)*(R88/2-R10/2-R18))*100)/100;dlinna 1-Y faski kazah po Z (okruglena do desiatok 0.0)
+N1104 MSG("_1_YA_FAS_KAZAH_:  "<<R80<<"grad,   Lfaski="<<R82<<",   S="<<R63<<",   F="<<R64<<",   prituplenie="<<R18)
+N1105 R83=0 
+N1106 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N1107     M00
+N1108 ENDIF
+N1109 T=R60 
+N1110 M6 D1
+N1111 G17 G90 G64 G94
+N1112 IF($AA_IW[Z]<R189)
+N1113   G0 Z=R189 W0 
+N1114 ENDIF
+N1115 G0 Y=R9/2+R61/2+R188 X0 W0
+N1116 M3 S=R63
+N1117 G0 Z=R189
+N1118 G1 Z0 F=R190
+N1119 BEZ_VIEZDA4:
+N1120 G0 Y=R9/2+R61/2+R188 X0 W0
+N1121 M3 S=R63
+;
+N1122 IF(R66==1)
+N1123   M8
+N1124 ENDIF
+N1125 IF(R66==2)
+N1126   M7
+N1127 ENDIF
+;
+N1128 MSG("_1_YA_FAS_KAZAH_:  "<<R80<<"grad,   Lfaski="<<R82<<",   prituplenie="<<R18)
+N1129 WHILE(R83<R82)  
+N1130   R83=R83+R62 ; PO Z
+N1131   IF R83>R82
+N1132     R83=R82
+N1133   ENDIF
+N1134   R84=TAN(90-R80)*R83 ; PO Y
+N1135   G1 Z=-R83 F=R64
+N1136   G1 Y=R10/2+R61/2+R18+R84-R68 F=R64/2
+N1137   G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R64
+N1138   G0 Y=R9/2+R61/2+R188
+N1139 ENDWHILE
+N1140 IF(R67>5)AND(R60==R173)
+N1141   R193=$AA_IW[Y]
+N1142   R194=$AA_IW[X]
+N1143   GOTOF METKA5
+N1144 ENDIF
+N1145 M9
+N1146 G0 Z=R189
+N1147 METKA5:
+;
+N1148 STOPRE
+N1149 R52=0
+N1150 GOTOB POISK
+;---------------------------------------
+;
+;****************************************************************
+;*******          2-YA FASKA             ************************
+;****************************************************************
+;
+N1151 VTORAYA_FASKA:
+N1152 IF(R88>=R9) GOTOF Z_ALARM6
+N1153 IF(R80>=R8) GOTOF Z_ALARM7
+N1154 G0 B0
+;___C2____STARTOVAYA_TOCHKA
+N1155 IF(R17==0)
+N1156   R181=TAN(R80)*(R88/2-R10/2-R18);--po Z--
+N1157 ENDIF
+;___C3____STARTOVAYA_TOCHKA
+N1158 IF(R17>0)
+N1159   R149=R72*COS(360-R80);3.86370331tochka po Z na radiuse R72
+N1160   R150=R72-R72*SIN(360-R80)*(-1);2.96472382tochka po Y na radiuse R72
+N1161   R181=TAN(R80)*(R88/2-R10/2-R18-R150)+R149+R17;--po Z--
+N1162 ENDIF
+N1163 R182=R175-R176
+N1164 R183=R175*COS(360-R8)
+N1165 R184=R183-R182
+N1166 R185=TAN(90-R8)*R184
+N1167 R186=R175*SIN(360-R8)*(-1)
+N1168 R187=R175-R186-R185;POPRAVKA NA RADIUS
+N1169 R5=90; NACHALO V GRADUSAH
+N1170 R6=90; KONEC V GRADUSAH
+N1171 R7=2;  2-G2, 3-G3
+N1172 R199=0; GLUBINA
+N1173 R198=ROUND((TAN(R8)*(R9/2-R88/2))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+N1174 MSG("2-YA FASKA:  "<<R8<<"grad,   Lfaski="<<R198<<",   S="<<R177<<",   F="<<R178)
+N1175 IF((R173==R60)AND($AA_IW[Y]==R193)AND($AA_IW[X]==R194)) GOTOF BEZ_VIEZDA5
+N1176 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R173
+N1177     M00
+N1178 ENDIF
+N1179 T=R173 
+N1180 M6 D1
+N1181 G17 G90 G64 G94
+N1182 IF($AA_IW[Z]<R189)
+N1183   G0 Z=R189 W0 
+N1184 ENDIF
+N1185 G0 Y=R9/2+R174/2+R188 X0 W0
+N1186 G0 Z=R189
+N1187 BEZ_VIEZDA5:
+N1188 M3 S=R177
+N1189 TRANS Z=-R181
+N1190 G1 Z0 F=R190
+;
+N1191 IF(R180==1)
+N1192   M8
+N1193 ENDIF
+N1194 IF(R180==2)
+N1195   M7
+N1196 ENDIF
+;
+N1197 START_2_Y_FASKI:
+N1198 STOPRE
+N1199 IF(R199<=R198)
+N1200   R199=R199+R176; PO Z
+N1201   R200=TAN(90-R8)*R199; PO Y
+N1202   R201=R88/2+R174/2+R200-R187;radius s korekciey
+N1203   R202=R9/2+R174/2+R188;radius s korekciey i bezopasnim
+N1204   R203=R202*COS(R5);(X) PERVOJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N1205   R204=R202*SIN(R5);(Y) PERVOJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N1206   R205=R201*COS(R5);(X) PERVOJ TOCHKI
+N1207   R206=R201*SIN(R5);(Y) PERVOJ TOCHKI
+N1208   R207=R201*COS(R6);(X) VTOROJ TOCHKI
+N1209   R208=R201*SIN(R6);(Y) VTOROJ TOCHKI
+N1210   R209=R202*COS(R6);(X) VTOROJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N1211   R210=R202*SIN(R6);(Y) VTOROJ TOCHKI BEZOPPASNOGO ROSTOJ.
+N1212   R198=ROUND((TAN(R8)*(R9/2-R88/2))*100)/100;dlinna faski po Z (okruglena do desiatok 0.0)
+;
+N1213   IF(R5==90)AND(R6==90);KAK OBICHNAYA FASKA
+N1214       MSG("2-YA FASKA OBICHNAYA:  "<<R8<<" grad,   Lfaski="<<R198)
+N1215       G1 Z=-R199 F=R178
+N1216       G1 Y=R201 F=R178/2
+N1217       G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R178
+N1218       G0 Y=R9/2+R174/2+R188
+N1219   ENDIF
+;
+N1220   IF(R5<>90)OR(R6<>90)
+N1221     MSG("G"<<R7<<",  1-toch R5="<<R5<<",  2-toch R6="<<R6)
+
+N1222     IF($AA_IW[X]==ROUND(R202*COS(R5)*10000)/10000) AND ($AA_IW[Y]==ROUND(R202*SIN(R5)*10000)/10000) GOTOF BEZ_IZMENENIY
+N1223     IF(R7==2)
+N1224        G2 X=R203 Y=R204 I=AC(0) J=AC(0) F=R178
+N1225     ENDIF
+N1226     IF(R7==3)
+N1227        G3 X=R203 Y=R204 I=AC(0) J=AC(0) F=R178
+N1228     ENDIF
+N1229     R7=2
+
+N1229     BEZ_IZMENENIY:
+N1230     G1 Z=-R199 F=R178
+N1231     G1 X=R205 Y=R206 F=R178/2;PERVOJA TOCHKA
+N1232     G3 X=R207 Y=R208 I=AC(0) J=AC(0) F=R178
+N1233     G0 X=R209 Y=R210;VTORAJA BEZOPASNAJA
+N1234     IF(R199<=R198)
+N1235        R199=R199+R176; PO Z
+N1236        R200=TAN(90-R8)*R199; PO Y
+N1237        R201=R88/2+R174/2+R200-R187;radius s korekciey
+N1238        R202=R9/2+R174/2+R188;radius s korekciey i bezopasni
+N1239        R203=R202*COS(R5);(X) PERVOJ TOCHKI BEZOPPAS ROSTOJ.
+N1240        R204=R202*SIN(R5);(Y) PERVOJ TOCHKI BEZOPPAS ROSTOJ.
+N1241        R205=R201*COS(R5);(X) PERVOJ TOCHKI
+N1242        R206=R201*SIN(R5);(Y) PERVOJ TOCHKI
+N1243        R207=R201*COS(R6);(X) VTOROJ TOCHKI
+N1244        R208=R201*SIN(R6);(Y) VTOROJ TOCHKI
+N1245        R209=R202*COS(R6);(X) VTOROJ TOCHKI BEZOPPAS ROSTOJ.
+N1246        R210=R202*SIN(R6);(Y) VTOROJ TOCHKI BEZOPPAS ROSTOJ.
+N1247        G0 X=R209 Y=R210
+N1248        G1 Z=-R199 F=R178
+N1249        G1 X=R207 Y=R208 F=R178/2;VTORAYA TOCHKA
+N1250        G2 X=R205 Y=R206 I=AC(0) J=AC(0) F=R178
+N1251        G0 X=R203 Y=R204;PERVAYA BEZOPASNAJA
+N1252     ENDIF
+N1253   ENDIF
+;
+N1254   MSG("1-toch R5="<<R5<<",  2-toch R6="<<R6<<",  pereezd k pervoy tochke R7=2(G2),R7=3(G3)")
+N1255   M01
+N1256   GOTOB START_2_Y_FASKI
+N1257 ENDIF 
+N1258 TRANS
+N1259 M9
+N1260 G0 Z=R189
+;
+;
+N1261 STOPRE
+N1262 R67=0
+N1263 GOTOB POISK
+;-------------------------------------------------------
+;;
+;****************************************************************
+;*******     Z_2_YA_FASKA_KAZAH_         ************************
+;****************************************************************
+N1264 Z_2_YA_FASKA_KAZAH_:
+N1265 G0 B0
+N1266 R82=ROUND(TAN(R8)*(R9/2-R88/2)*100)/100;dlinna 2-Y faski kazah po Z (okruglena do desiatok 0.0)
+N1267 R181=TAN(R80)*(R88/2-R10/2-R18);STARTOVAYA TOCHKA po Z
+N1268 R86=R181+R82;GLUBINA FASKI
+N1269 MSG("_2_YA_FAS_KAZAH_:"<<R8<<"grad,S="<<R177<<",F="<<R178<<",L1-y+L2-y="<<R86)
+N1270 R83=0
+N1271 IF((R173==R60)AND($AA_IW[Y]==R193)AND($AA_IW[X]==R194)) GOTOF BEZ_VIEZDA6 
+N1272 IF NUMBER($TC_TP2[$TC_MPP6[9998,1]])<>R60
+N1273     M00
+N1274 ENDIF
+N1275 T=R60 
+N1276 M6 D1
+N1277 G17 G90 G64 G94
+N1278 IF($AA_IW[Z]<R189)
+N1279   G0 Z=R189 W0 
+N1280 ENDIF
+N1281 G0 Y=R9/2+R174/2+R188 X0 W0
+N1282 M3 S=R177
+N1283 G0 Z=R189
+N1284 G1 Z=-R181 F=R190
+N1285 BEZ_VIEZDA6:
+N1286 G0 Y=R9/2+R174/2+R188 X0 W0
+N1287 M3 S=R177
+;
+N1288 IF(R66==1)
+N1289   M8
+N1290 ENDIF
+N1291 IF(R66==2)
+N1292   M7
+N1293 ENDIF
+;
+N1294 MSG("_2_YA_FAS_KAZAH_:  "<<R80<<"grad  ,L1-y+L2-y="<<R86)
+N1295 WHILE(R83<=R82)  
+N1296   R83=R83+R176 ; PO Z
+N1297   R84=TAN(90-R8)*R83 ; PO Y
+N1298   G1 Z=-R83-R181 F=R178
+N1299   G1 Y=R88/2+R174/2+R84 F=R178/2
+N1300   G2 X=IC(0) Y=IC(0) I=AC(0) J=AC(0) F=R178
+N1301   G0 Y=R9/2+R174/2+R188
+N1302 ENDWHILE
+N1303 M9
+N1304 G0 Z=R189
+;
+N1305 STOPRE
+N1306 R67=0
+N1307 GOTOB POISK
+;---------------------------------------
+;
+; ispol'zovanie R-parametri
+; 0  ,1  ,2  ,   ,4  ,5  ,6  ,7  ,8  ,9
+; 10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19
+; 20 ,21 ,22 ,23 ,24 ,25 ,26 ,27 ,28 ,29
+; 30 ,31 ,32 ,33 ,34 ,35 ,36 ,37 ,38 ,39
+; 40 ,41 ,42 ,43 ,44 ,45 ,46 ,47 ,48 ,49
+; 50 ,   ,52 ,   ,   ,55 ,56 ,57 ,58 ,59
+; 60 ,61 ,62 ,63 ,64 ,65 ,66 ,67 ,68 ,69
+; 70 ,71 ,72 ,73 ,74 ,75 ,76 ,77 ,78 ,79
+; 80 ,81 ,82 ,83 ,84 ,85 ,86 ,87 ,88 ,89
+; 90 ,91 ,92 ,93 ,94 ,95 , 96,   ,   ,  
+;    ,   ,   ,103,104,105,106,107,108,109
+; 110,111,112,113,114,115,116,117,   ,   
+;    ,121,   ,   ,124,125,126,   ,   ,   
+;    ,131,132,133,134,135,136,137,138,   
+;    ,141,   ,143,144,145,   ,   ,148,149
+; 150,151,152,153,154,155,156,157,158,159
+; 160,161,162,163,164,165,166,167,168,169
+; 170,171,172,173,174,175,176,177,178,   
+; 180,181,182,183,184,185,186,187,188,189
+; 190,191,192,193,194,   ,   ,   ,198,199
+; 200,201,202,203,204,205,206,207,208,209
+; 210,211,212,213,214,215,216,217,218,219
+; 220,221,222,223,224,225,226,227,228,229
+; 230,231,232,233,234,235,236,237,238,239
+; 240,241,
+;
+;
+;
+N1308 Z_ALARM1:
+N1309 MSG("Min diametr vnutri BOLSHE chem max snarugi")
+N1310 M00
+N1311 Z_ALARM2:
+N1312 MSG("Min diametr vnutri BOLSHE chem DP")
+N1313 M00
+N1314 Z_ALARM3:
+N1315 MSG("Faska "<<R13<<"grad NE mozet delatca frezoy 75grad")
+N1316 M00
+N1317 Z_ALARM4:
+N1318 MSG("Dlinny frezi 75 gradusov ne hvatit")
+N1319 M00
+N1320 Z_ALARM5:
+N1321 MSG("Faska "<<R80<<"grad NE moget delatca frezoy 15grad")
+N1322 M00
+N1323 Z_ALARM6:
+N1324 MSG("Diametr nachala 2-y faski dolzna bit < MAX D trubi")
+N1325 M00
+N1326 Z_ALARM7:
+N1327 MSG("Ugol 2-y faski dolzen bit > 1-y")
+N1328 M00
+N1329 Z_ALARM8:
+N1330 MSG("Faska "<<R80<<"grad NE moget delatca frezoy 19grad")
+N1331 M00
+N1332 Z_ALARM9:
+N1333 MSG("US nado zapuskat POSLE faski")
+N1334 M00
+N1335 Z_ALARM10:
+N1336 MSG("UGOL RASTOCHKI STOIT-0, ZAPUSTI PO VINTU ILI POSTAV UGOL")
+N1337 M00
+N1338 KONEC:
+N1339 M5 M9
+N1340 IF R226==1
+N1341     G0
+N1342     G75Z0X0
+N1343 ENDIF
+N1344 M30

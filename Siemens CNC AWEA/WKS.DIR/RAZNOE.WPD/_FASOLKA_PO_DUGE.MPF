@@ -1,0 +1,58 @@
+;
+; uglublenie po spirale, po narugnomu konturu (po G3)
+; Z0 - sverhu
+; OBKATANA V SIMULIATORE !!!!!
+;
+N1 WORKPIECE(,"",,"PIPE",64,0,-50,-80,500,100)
+N1 G54   ;!!!
+;_______geometriya fasoli_____
+N2 R1=189  ;R dugi, po centru fasoli
+N3 R2=220;135    ;1-ya tochka v gradusah ot osi +X protiv chasov
+N4 R3=320;225   ;2-ya tochka v gradusah
+N5 R4=33.02   ;shirina fasoli
+N6 R5=70   ;glubina fasoli (tolshina detali)
+;_______freza__________
+N7 R6=15   ;Nomer frezi
+N8 R7=32   ;Diametr frezi
+N9 R8=600  ;(S) oboroti
+N10 R9=2000  ;(F) podacha
+N11 R15=0.5   ;SHAG po Z
+;****************************************************************
+N12 R10=R1*COS(R2);1ya - X
+N13 R11=R1*SIN(R2);1ya - Y
+N14 R12=R1*COS(R3);2ya - X
+N15 R13=R1*SIN(R3);2ya - Y
+N16 R17=(R1+R4/2-R7/2)*COS(R2);1ya1 - X
+N17 R18=(R1+R4/2-R7/2)*SIN(R2);1ya1 - Y
+N18 R19=(R1+R4/2-R7/2)*COS(R3);2ya1 - X
+N19 R20=(R1+R4/2-R7/2)*SIN(R3);2ya1 - Y
+N20 R21=(R1-R4/2+R7/2)*COS(R3);2ya2 - X
+N21 R22=(R1-R4/2+R7/2)*SIN(R3);2ya2 - Y
+N22 R23=(R1-R4/2+R7/2)*COS(R2);1ya2 - X
+N23 R24=(R1-R4/2+R7/2)*SIN(R2);1ya2 - Y
+N24 R14=R5/(ROUNDUP(R5/R15));SHAG PO Z
+N25 R16=0;dlia while
+N26 T=R6 M6 D1
+N27 G17 G71 G94 G90 G64
+N28 G0 Z200 W0
+N29 G0 B0
+N30 G0 X0 Y0
+N31 G0 X=R10 Y=R11
+N32 M3 S=R8
+N33 G1 Z2 F2000
+N34 G1 Z0 F=R9
+N35 G1 X=R17 Y=R18
+N36 WHILE R16<R5
+N37     R16=R16+R14
+N38     IF R16>R5
+N39        R16==R5
+N40     ENDIF
+N41     G3 X=R19 Y=R20 I=AC(0) J=AC(0) Z=-R16 F=R9
+N42     G3 X=R21 Y=R22 I=AC(R12) J=AC(R13)
+N43     G2 X=R23 Y=R24 I=AC(0) J=AC(0)
+N44     G3 X=R17 Y=R18 I=AC(R10) J=AC(R11)
+N45 ENDWHILE
+N46 G3 X=R19 Y=R20 I=AC(0) J=AC(0) Z=-R16 F=R9
+N47 G1 X=R12 Y=R13
+N48 G0 Z200
+N49 M30
